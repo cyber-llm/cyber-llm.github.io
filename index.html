@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Large Language Models for Cybersecurity: A Survey of Data, Training, Models, Agent Systems, Evaluation, and Applications</title>
+<meta name="description" content="From understanding threats to taking action. How data, models, and agents build security capability.">
+<meta property="og:title" content="Large Language Models for Cybersecurity">
+<meta property="og:description" content="From understanding threats to taking action. How data, models, and agents build security capability.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://llmcybersecurity.github.io/">
+<meta property="og:url" content="https://llmcybersecurity.github.io/">
+<meta property="og:image" content="https://llmcybersecurity.github.io/assets/img/mascot-256.png">
+<meta name="theme-color" content="#f6f8fc">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="preload" href="assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#overview">Skip to content</a>
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in">
+    <a class="brand" href="#top"><span class="brand-mark"><img src="assets/img/mascot-256.png" alt="" width="28" height="28"></span><span>LLMs for Cybersecurity</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="section-nav"><span class="mt-label">Sections</span><span aria-hidden="true">+</span></button>
+    <div class="nav-links" id="section-nav"><a href="#overview">Overview</a><a href="#landscape">Landscape</a><a href="#foundations">Foundations</a><a href="#data">Data</a><a href="#training">Training</a><a href="#models">Models</a><a href="#agents">Agents</a><a href="#evaluation">Evaluation</a><a href="#applications">Applications</a><a href="#outlook">Outlook</a><a href="#cite">Cite</a></div>
+    <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+  </div>
+</nav>
+<canvas class="cursor-comet" id="cursor-comet" aria-hidden="true"></canvas>
+<header class="hero" id="top">
+  <div class="hero-art" aria-hidden="true"><div class="hero-aurora"></div><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow"><span class="dot"></span>A survey · October 2026</span>
+    <h1><span class="title-line">Large Language Models</span><span class="title-line">for <span class="accent g">Cybersecurity</span></span></h1>
+    <p class="subtitle">A Survey of Data, Training, Models, Agent Systems, Evaluation, and Applications</p>
+    <p class="authors"><span class="author">Fasheng Miao<sup>1,2,*</sup></span>, <span class="author">Yuanda Wang<sup>1,3</sup></span>, <span class="author">Zhaoyu Hu<sup>1</sup></span>, <span class="author">Jiutian Zeng<sup>1</sup></span>, <span class="author">Xiang Li<sup>4</sup></span>, <span class="author">Shuying Zhuang<sup>5</sup></span>, <span class="author">Yiliang Zhang<sup>1</sup></span>, <span class="author">Ziang Weng<sup>1</sup></span>, <span class="author">Chengwei Dai<sup>1</sup></span>, <span class="author">Junjie Li<sup>1</sup></span>, <span class="author">Haokang Zhang<sup>1</sup></span>, <span class="author">Ruipeng Jia<sup>6</sup></span>, <span class="author">Jiadong Fu<sup>7</sup></span>, <span class="author">Yang Ge<sup>8</sup></span>, <span class="author">Xiuqi Lu<sup>2</sup></span>, <span class="author">Zhenhao Tian<sup>2</sup></span>, <span class="author">Yuqi Qiu<sup>4</sup></span>, <span class="author">Zuyao Xu<sup>4</sup></span>, <span class="author">Lu Sun<sup>4</sup></span>, <span class="author">Aichun Huang<sup>4</sup></span>, <span class="author">Changqing An<sup>2</sup></span>, <span class="author">Xinhui Han<sup>3</sup></span>, <span class="author">Chao Zhang<sup>2</sup></span>, <span class="author">Longtao Huang<sup>1,6</sup></span>, <span class="author">Haixin Duan<sup>2</sup></span>, <span class="author">Zheli Liu<sup>4</sup></span>, <span class="author">Jilong Wang<sup>2,9</sup></span></p>
+    <p class="affils"><span><sup>1</sup>XekRung Team, Alibaba Group</span><span><sup>2</sup>Tsinghua University</span><span><sup>3</sup>Peking University</span><span><sup>4</sup>Nankai University</span><span><sup>5</sup>Zhongguancun Laboratory</span><span><sup>6</sup>Minjur Team, Alibaba Group</span><span><sup>7</sup>Institute of Information Engineering, Chinese Academy of Sciences</span><span><sup>8</sup>Institute of Software, Chinese Academy of Sciences</span><span><sup>9</sup>Quan Cheng Laboratory</span></p>
+    <p class="contact"><sup>*</sup>Discussion and feedback are welcome at <a href="mailto:mfs24@mails.tsinghua.edu.cn">mfs24@mails.tsinghua.edu.cn</a></p>
+    <div class="seals"><img class="logo logo-alibaba" src="assets/img/logos/alibaba.png" width="310" height="200" alt="Alibaba Group" title="Alibaba Group" loading="eager" decoding="async"><img class="logo logo-tsinghua" src="assets/img/logos/tsinghua.png" width="200" height="200" alt="Tsinghua University" title="Tsinghua University" loading="eager" decoding="async"><img class="logo logo-pku" src="assets/img/logos/pku.png" width="200" height="200" alt="Peking University" title="Peking University" loading="eager" decoding="async"><img class="logo logo-nankai" src="assets/img/logos/nankai.png" width="200" height="200" alt="Nankai University" title="Nankai University" loading="eager" decoding="async"><img class="logo logo-zgc" src="assets/img/logos/zgc.png" width="200" height="199" alt="Zhongguancun Laboratory" title="Zhongguancun Laboratory" loading="eager" decoding="async"><img class="logo logo-iie" src="assets/img/logos/iie.png" width="204" height="200" alt="Institute of Information Engineering, CAS" title="Institute of Information Engineering, CAS" loading="eager" decoding="async"><img class="logo logo-iscas" src="assets/img/logos/iscas.png" width="497" height="120" alt="Institute of Software, CAS" title="Institute of Software, CAS" loading="eager" decoding="async"><img class="logo logo-qcl" src="assets/img/logos/qcl.png" width="200" height="200" alt="Quan Cheng Laboratory" title="Quan Cheng Laboratory" loading="eager" decoding="async"></div>
+    <div class="actions">
+      <a class="btn primary" href="#overview"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="15.5" cy="8.5" r="1.5"/></svg>Explore the survey</a>
+      <span class="btn" aria-disabled="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6m-6 4h4"/></svg>Paper <span class="soon">Coming soon</span></span>
+      <a class="btn" href="#cite"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 7h4v4c0 3-1.5 5-4 6M15 7h4v4c0 3-1.5 5-4 6"/></svg>BibTeX</a>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="block" id="overview" style="--hue:#1c62c4;--hue-soft:#e9f1fd">
+    <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span>Overview</div>
+      <h2>One field. Six connected perspectives.</h2>
+      <p class="lede">Security capability emerges from data, training, and the systems that turn model outputs into verified action.</p>
+    </div>
+    <div class="overview-board">
+      <div class="abstract reveal"><span class="abstract-label">From the abstract</span><p>Advances in language understanding, code reasoning, and tool use are enabling cybersecurity agents to progress from question answering and single-step analysis to vulnerability research, incident investigation, and multistage task execution. This survey examines research on Large Language Models (LLMs) for cybersecurity across six dimensions: <b>data, training, models, agent systems, evaluation, and applications</b>.</p><p>We argue that cybersecurity LLMs are progressing <b>from acquiring domain knowledge to learning how to perform interactive tasks</b>. Task quality and cost depend on both the model and its harness: the model reasons and selects actions, while the harness organizes information, tools, and execution state.</p></div>
+      <div class="ov-stats reveal"><div class="ov-stat"><b>6</b><span>research dimensions</span></div><div class="ov-stat"><b>556</b><span>works cited</span></div><div class="ov-stat"><b>101</b><span>benchmarks catalogued</span></div><div class="ov-stat"><b>20</b><span>figures</span></div></div>
+    </div>
+    <div class="dims-head reveal"><h3>Three contributions</h3><span>Section 1.4 of the survey</span></div>
+    <div class="insights"><div class="insight reveal" style="--i:0"><span class="insight-no" aria-hidden="true">01</span><h3>One framework, six dimensions</h3><p>Connects data, training, models, agent systems, evaluation, and applications through inputs, outputs, updates, validation, and resource use.</p></div><div class="insight reveal" style="--i:1"><span class="insight-no" aria-hidden="true">02</span><h3>Cross&#8209;study comparisons</h3><p>Examines how domain adaptation depends on the task, how harnesses shape model behavior, and how validation limits operational benefit.</p></div><div class="insight reveal" style="--i:2"><span class="insight-no" aria-hidden="true">03</span><h3>Resources and a research agenda</h3><p>Organizes security datasets, models, agents, and benchmarks, and sets open questions in agentic training and model–harness optimization.</p></div></div>
+    <div class="dims-head reveal"><h3>Jump to a dimension</h3><span>Sections 3–8 of the survey</span></div>
+    <div class="dims"><a class="dim reveal" href="#data" style="--c:#0a7c88;--c-soft:#e0f3f5;--i:0"><span class="dim-top"><span class="dim-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></svg></span><span class="dim-sec">§3</span></span><b>Data</b><span class="dim-description">Knowledge &amp; experience</span></a><a class="dim reveal" href="#training" style="--c:#b74c12;--c-soft:#fdeedf;--i:1"><span class="dim-top"><span class="dim-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg></span><span class="dim-sec">§4</span></span><b>Training</b><span class="dim-description">Learning &amp; adaptation</span></a><a class="dim reveal" href="#models" style="--c:#7436c2;--c-soft:#f1e9fc;--i:2"><span class="dim-top"><span class="dim-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4"/></svg></span><span class="dim-sec">§5</span></span><b>Models</b><span class="dim-description">Specialized &amp; general</span></a><a class="dim reveal" href="#agents" style="--c:#2a7a37;--c-soft:#e2f3e5;--i:3"><span class="dim-top"><span class="dim-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><path d="m10.5 8-4 7m7-7 4 7M8 18h8"/></svg></span><span class="dim-sec">§6</span></span><b>Agent systems</b><span class="dim-description">Planning &amp; execution</span></a><a class="dim reveal" href="#evaluation" style="--c:#a33f6c;--c-soft:#f8e3ec;--i:4"><span class="dim-top"><span class="dim-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 3v18h17M8 16v-5m5 5V6m5 10V9"/></svg></span><span class="dim-sec">§7</span></span><b>Evaluation</b><span class="dim-description">Evidence &amp; trade-offs</span></a><a class="dim reveal" href="#applications" style="--c:#3c4e66;--c-soft:#e9eef5;--i:5"><span class="dim-top"><span class="dim-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 2 8 3v6c0 5-4 8-8 11-4-3-8-6-8-11V5z"/><path d="m8 12 3 3 5-6"/></svg></span><span class="dim-sec">§8</span></span><b>Applications</b><span class="dim-description">Analysis &amp; response</span></a></div>
+    </div>
+  </section>
+  <section class="block chapter band" id="landscape" style="--hue:#b93a26;--hue-soft:#fbe5df">
+    <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true">01</span>Introduction</div>
+      <h2>A shared foundation for attack and defense</h2>
+      <p class="lede">The same models, knowledge, and tools support offensive research and defensive operations.</p>
+    </div>
+    <div class="panel viewer reveal"><div class="viewer-bar"><div class="tabs" role="tablist" aria-label="A shared foundation for attack and defense figures"><button class="tab" id="landscape-t0" type="button" role="tab" tabindex="0" aria-controls="landscape-f0" aria-selected="true"><span class="tab-no">Fig. 1</span>Landscape</button><button class="tab" id="landscape-t1" type="button" role="tab" tabindex="-1" aria-controls="landscape-f1" aria-selected="false"><span class="tab-no">Fig. 2</span>Taxonomy</button></div><span class="viewer-hint"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4m-5-8v6m-3-3h6"/></svg>Click to zoom</span></div>
+      <figure class="fig" id="landscape-f0" role="tabpanel" aria-labelledby="landscape-t0">
+        <button class="zoom" type="button" data-full="assets/fig/adversarial-coevolution.svg" data-download="adversarial-coevolution.svg" aria-label="Explore figure: Landscape">
+          <img src="assets/fig/adversarial-coevolution.svg" width="955" height="651" alt="LLM-enabled cyber offense and defense: applications, shared foundations, and a timeline of representative work." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 1</span><span class="fcap">Attack and defense share models, knowledge, tools, and execution feedback.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+      <figure class="fig tall" id="landscape-f1" hidden role="tabpanel" aria-labelledby="landscape-t1">
+        <button class="zoom" type="button" data-full="assets/fig/survey-taxonomy.svg" data-download="survey-taxonomy.svg" aria-label="Explore figure: Taxonomy">
+          <img src="assets/fig/survey-taxonomy.svg" width="488" height="631" alt="A taxonomy of cybersecurity LLM research across six dimensions, with representative studies." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 2</span><span class="fcap">Six research dimensions and their representative studies, mapped to Sections 3–8.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+    </div>
+    <div class="findings"><div class="points n4"><div class="point reveal" style="--i:0"><span class="point-no" aria-hidden="true">01</span><h3>Offensive applications</h3><p>Reconnaissance, vulnerability research, exploit chains, and social engineering.</p></div><div class="point reveal" style="--i:1"><span class="point-no" aria-hidden="true">02</span><h3>Defensive applications</h3><p>Threat detection, vulnerability remediation, incident response, and forensics.</p></div><div class="point reveal" style="--i:2"><span class="point-no" aria-hidden="true">03</span><h3>Shared feedback</h3><p>Execution results become new training material and policy feedback.</p></div><div class="point reveal" style="--i:3"><span class="point-no" aria-hidden="true">04</span><h3>Context matters</h3><p>The balance depends on access, resources, validation, and deployment.</p></div></div><div class="works reveal"><span class="works-label">Representative work</span><ul class="work-list"><li>PentestGPT</li> <li>Fuzz4All</li> <li>Big Sleep</li> <li>HPTSA</li> <li>EnIGMA</li> <li>CAI</li> <li>Sec-PaLM 2</li> <li>SEvenLLM</li> <li>AutoPatch</li> <li>CyberSleuth</li> <li>Foundation-Sec</li></ul></div></div>
+    
+    </div>
+  </section>
+  <section class="block chapter" id="foundations" style="--hue:#1c62c4;--hue-soft:#e9f1fd">
+    <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true">02</span>Cybersecurity Tasks, Capability Evolution, and Analytical Framework</div>
+      <h2>Understand the task before the score</h2>
+      <p class="lede">Shared inputs do not imply shared objectives. Compare tasks, capability building, and evaluation together.</p>
+    </div>
+    <div class="panel viewer reveal"><div class="viewer-bar"><div class="tabs" role="tablist" aria-label="Understand the task before the score figures"><button class="tab" id="foundations-t0" type="button" role="tab" tabindex="0" aria-controls="foundations-f0" aria-selected="true"><span class="tab-no">Fig. 3</span>Tasks &amp; challenges</button><button class="tab" id="foundations-t1" type="button" role="tab" tabindex="-1" aria-controls="foundations-f1" aria-selected="false"><span class="tab-no">Fig. 4</span>Models &amp; harnesses</button><button class="tab" id="foundations-t2" type="button" role="tab" tabindex="-1" aria-controls="foundations-f2" aria-selected="false"><span class="tab-no">Fig. 5</span>Capability expansion</button><button class="tab" id="foundations-t3" type="button" role="tab" tabindex="-1" aria-controls="foundations-f3" aria-selected="false"><span class="tab-no">Fig. 6</span>Three axes</button></div><span class="viewer-hint"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4m-5-8v6m-3-3h6"/></svg>Click to zoom</span></div>
+      <figure class="fig" id="foundations-f0" role="tabpanel" aria-labelledby="foundations-t0">
+        <button class="zoom" type="button" data-full="assets/fig/security-scenarios-overview.svg" data-download="security-scenarios-overview.svg" aria-label="Explore figure: Tasks &amp; challenges">
+          <img src="assets/fig/security-scenarios-overview.svg" width="975" height="675" alt="Cybersecurity tasks: objects of analysis, representative workflows, and shared challenges." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 3</span><span class="fcap">Security objects, representative workflows, and six shared challenges.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+      <figure class="fig tall" id="foundations-f1" hidden role="tabpanel" aria-labelledby="foundations-t1">
+        <button class="zoom" type="button" data-full="assets/fig/model-harness-timeline.svg" data-download="model-harness-timeline.svg" aria-label="Explore figure: Models &amp; harnesses">
+          <img src="assets/fig/model-harness-timeline.svg" width="491" height="558" alt="Timeline of cybersecurity models and agent systems, with an overview of model–harness collaboration." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 4</span><span class="fcap">How cybersecurity models and agent harnesses evolved together.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+      <figure class="fig" id="foundations-f2" hidden role="tabpanel" aria-labelledby="foundations-t2">
+        <button class="zoom" type="button" data-full="assets/fig/capability-evolution.svg" data-download="capability-evolution.svg" aria-label="Explore figure: Capability expansion">
+          <img src="assets/fig/capability-evolution.svg" width="975" height="588" alt="Evolution of cybersecurity LLM capabilities and their associated training objectives and runtime mechanisms." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 5</span><span class="fcap">Six aspects of capability expansion: representation through feedback-driven learning.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+      <figure class="fig" id="foundations-f3" hidden role="tabpanel" aria-labelledby="foundations-t3">
+        <button class="zoom" type="button" data-full="assets/fig/three-axis-framework.svg" data-download="three-axis-framework.svg" aria-label="Explore figure: Three axes">
+          <img src="assets/fig/three-axis-framework.svg" width="975" height="654" alt="A three-axis analytical framework: tasks, capability development, and evaluation." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 6</span><span class="fcap">Compare tasks, capability building, and evaluation under matched conditions.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+    </div>
+    <div class="findings"><div class="points n4"><div class="point reveal" style="--i:0"><span class="point-no" aria-hidden="true">01</span><h3>Four capability levels</h3><p>Knowledge understanding → single-step analysis → tool interaction → multistep execution.</p></div><div class="point reveal" style="--i:1"><span class="point-no" aria-hidden="true">02</span><h3>Six aspects of expansion</h3><p>Representations, instructions, tools, verifiable reasoning, multistage execution, and feedback-driven learning.</p></div><div class="point reveal" style="--i:2"><span class="point-no" aria-hidden="true">03</span><h3>The task changes the problem</h3><p>Function judgment, repository localization, and vulnerability reproduction need different evidence and tools.</p></div><div class="point reveal" style="--i:3"><span class="point-no" aria-hidden="true">04</span><h3>The harness changes the result</h3><p>On 33 Cybench tasks, CSI&#x27;s best single harness solves 15; shared-blackboard coordination solves 19.</p></div></div><div class="works reveal"><span class="works-label">Representative work</span><ul class="work-list"><li>SecureBERT</li> <li>HackMentor</li> <li>EnIGMA</li> <li>R2Vul</li> <li>Big Sleep</li> <li>CTF-Dojo</li> <li>PrimeVul</li> <li>Antares</li> <li>CyberGym</li> <li>Cybench</li> <li>CSI</li> <li>PhishTriage</li></ul></div></div>
+    
+    </div>
+  </section>
+  <section class="block chapter band" id="data" style="--hue:#0a7c88;--hue-soft:#e0f3f5">
+    <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true">03</span>Security Data and Interactive Environments</div>
+      <h2>From raw data to verified experience</h2>
+      <p class="lede">Build data for the learning objective. Preserve provenance, validate outcomes, and keep training separate from evaluation.</p>
+    </div>
+    <div class="panel viewer reveal"><div class="viewer-bar"><span class="viewer-title"><span class="tab-no">Fig. 7</span>Data pipeline</span><span class="viewer-hint"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4m-5-8v6m-3-3h6"/></svg>Click to zoom</span></div>
+      <figure class="fig" id="data-f0">
+        <button class="zoom" type="button" data-full="assets/fig/security-data-pipeline.svg" data-download="security-data-pipeline.svg" aria-label="Explore figure: Data pipeline">
+          <img src="assets/fig/security-data-pipeline.svg" width="975" height="660" alt="Security data construction: organizing domain corpora, instructions, interaction trajectories, and preference data; synthesizing, filtering, and validating samples; and separating training from evaluation." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 7</span><span class="fcap">From security sources to validated data, with training–evaluation separation.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+    </div>
+    <div class="findings"><div class="sec-stats n3 reveal"><div><b>≈20B</b><span>security tokens in SecCorpus</span></div><div><b>266,180</b><span>RedSage multiturn conversations</span></div><div><b>≈219,700</b><span>MiST seeds</span></div></div><div class="points n4"><div class="point reveal" style="--i:0"><span class="point-no" aria-hidden="true">01</span><h3>Filtered domain corpora</h3><p>SecCorpus combines 4,000+ keywords with a classifier to select security text.</p></div><div class="point reveal" style="--i:1"><span class="point-no" aria-hidden="true">02</span><h3>From documents to supervision</h3><p>Instructions, reasoning traces, and preference pairs turn documents into task supervision.</p></div><div class="point reveal" style="--i:2"><span class="point-no" aria-hidden="true">03</span><h3>Environments and trajectories</h3><p>Fix initial states; record observations, actions, and outcomes; retain validated trajectories.</p></div><div class="point reveal" style="--i:3"><span class="point-no" aria-hidden="true">04</span><h3>Validation and separation</h3><p>Check executable outcomes and split related code, patches, and reports together.</p></div></div><div class="works reveal"><span class="works-label">Representative work</span><ul class="work-list"><li>SecCorpus</li> <li>Foundation-Sec</li> <li>Primus</li> <li>RedSage</li> <li>MiST</li> <li>R2Vul</li> <li>ARVO</li> <li>kGym</li> <li>CTF-Dojo</li> <li>Cyber-Zero</li> <li>CyberForge</li> <li>PrimeVul</li></ul></div></div>
+    
+    </div>
+  </section>
+  <section class="block chapter" id="training" style="--hue:#b74c12;--hue-soft:#fdeedf">
+    <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true">04</span>Training and Domain Adaptation</div>
+      <h2>Train for knowledge, judgment, and action</h2>
+      <p class="lede">Different objectives build different capabilities. Validated experience connects training stages to later improvements.</p>
+    </div>
+    <div class="panel viewer reveal"><div class="viewer-bar"><div class="tabs" role="tablist" aria-label="Train for knowledge, judgment, and action figures"><button class="tab" id="training-t0" type="button" role="tab" tabindex="0" aria-controls="training-f0" aria-selected="true"><span class="tab-no">Fig. 8</span>Training pipeline</button><button class="tab" id="training-t1" type="button" role="tab" tabindex="-1" aria-controls="training-f1" aria-selected="false"><span class="tab-no">Fig. 9</span>Feedback learning</button></div><span class="viewer-hint"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4m-5-8v6m-3-3h6"/></svg>Click to zoom</span></div>
+      <figure class="fig" id="training-f0" role="tabpanel" aria-labelledby="training-t0">
+        <button class="zoom" type="button" data-full="assets/fig/security-domain-training-pipeline.svg" data-download="security-domain-training-pipeline.svg" aria-label="Explore figure: Training pipeline">
+          <img src="assets/fig/security-domain-training-pipeline.svg" width="975" height="496" alt="Training and domain adaptation for cybersecurity LLMs: continued pretraining, supervised fine-tuning, preference optimization, reinforcement learning, distillation, and continual learning with experience replay." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 8</span><span class="fcap">Domain adaptation, from continued pretraining to learning from validated experience.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+      <figure class="fig" id="training-f1" hidden role="tabpanel" aria-labelledby="training-t1">
+        <button class="zoom" type="button" data-full="assets/fig/feedback-learning.svg" data-download="feedback-learning.svg" aria-label="Explore figure: Feedback learning">
+          <img src="assets/fig/feedback-learning.svg" width="975" height="571" alt="Learning from interaction feedback through parameter updates and runtime adaptation. Execution traces and validation feedback support supervised fine-tuning and reinforcement learning, while selected experience supports context and memory updates, retrieval, and replanning." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 9</span><span class="fcap">Validated feedback updates model parameters or runtime context and memory.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+    </div>
+    <div class="findings"><div class="sec-stats n3 reveal"><div><b>11.7B</b><span>RedSage CPT tokens after deduplication</span></div><div><b>5.0% → 17.5%</b><span>Qwen3-32B pass@1 on Cybench after CTF-Dojo SFT</span></div><div><b>7,000+</b><span>task environments in MiMo-V2.6 RL</span></div></div><div class="points n4"><div class="point reveal" style="--i:0"><span class="point-no" aria-hidden="true">01</span><h3>Domain knowledge</h3><p>Continued pretraining blends security corpora with general data to build domain knowledge.</p></div><div class="point reveal" style="--i:1"><span class="point-no" aria-hidden="true">02</span><h3>Action imitation</h3><p>Trajectory SFT supervises analyses, tool calls, and answers; tool returns remain context.</p></div><div class="point reveal" style="--i:2"><span class="point-no" aria-hidden="true">03</span><h3>Judgment &amp; rewards</h3><p>Preference optimization and verifiable rewards improve judgments through explicit feedback.</p></div><div class="point reveal" style="--i:3"><span class="point-no" aria-hidden="true">04</span><h3>Experience reuse</h3><p>Agentic RL updates action policies; runtime feedback can also improve the harness.</p></div></div><div class="works reveal"><span class="works-label">Representative work</span><ul class="work-list"><li>Foundation-Sec</li> <li>Primus</li> <li>RedSage</li> <li>MiST</li> <li>Cyber-Zero</li> <li>CTF-Dojo</li> <li>R2Vul</li> <li>Minerva</li> <li>Antares</li> <li>VulAgentRL</li> <li>Pentest-R1</li> <li>Meta-SecAlign</li></ul></div></div>
+    
+    </div>
+  </section>
+  <section class="block chapter band" id="models" style="--hue:#7436c2;--hue-soft:#f1e9fc">
+    <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true">05</span>Large Language Models for Cybersecurity</div>
+      <h2>Domain expertise. General capability.</h2>
+      <p class="lede">Specialized and general-purpose models converge through code, reasoning, and interaction. Their value remains task-dependent.</p>
+    </div>
+    <div class="panel viewer reveal"><div class="viewer-bar"><span class="viewer-title"><span class="tab-no">Fig. 16</span>Model rankings</span><span class="viewer-hint"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4m-5-8v6m-3-3h6"/></svg>Click to zoom</span></div>
+      <figure class="fig" id="models-f0">
+        <button class="zoom" type="button" data-full="assets/fig/cover-model-rankings.svg" data-download="cover-model-rankings.svg" aria-label="Explore figure: Model rankings">
+          <img src="assets/fig/cover-model-rankings.svg" width="900" height="450" alt="Model rankings on the CyberGym and ExploitGym leaderboards as of October 11, 2026." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 16</span><span class="fcap">CyberGym and ExploitGym rankings · snapshot of October 11, 2026.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+    </div>
+    <div class="findings"><div class="points n4"><div class="point reveal" style="--i:0"><span class="point-no" aria-hidden="true">01</span><h3>Staged domain adaptation</h3><p>Foundation-Sec separates Base, Instruct, and Reasoning; XekRung connects domain knowledge to tool use.</p></div><div class="point reveal" style="--i:1"><span class="point-no" aria-hidden="true">02</span><h3>Verifiable rewards and trajectories</h3><p>Minerva uses intelligence-task rewards; CTF-Dojo trains on validated interaction trajectories.</p></div><div class="point reveal" style="--i:2"><span class="point-no" aria-hidden="true">03</span><h3>Security inside general models</h3><p>Coding transfer, expert distillation, and interactive training also build security capability in general models.</p></div><div class="point reveal" style="--i:3"><span class="point-no" aria-hidden="true">04</span><h3>When does specialization pay?</h3><p>Test which tasks benefit reliably from specialization under matched execution conditions.</p></div></div><div class="works reveal"><span class="works-label">Representative work</span><ul class="work-list"><li>Foundation-Sec</li> <li>Primus</li> <li>RedSage</li> <li>XekRung</li> <li>Minerva</li> <li>CTF-Dojo</li> <li>VulAgentRL</li> <li>LLM4Decompile</li> <li>GPT-5.5-Cyber</li> <li>MAI-Cyber-1-Flash</li> <li>GLM-5.3</li> <li>MiMo-V2.6</li></ul></div></div>
+    
+    </div>
+  </section>
+  <section class="block chapter" id="agents" style="--hue:#2a7a37;--hue-soft:#e2f3e5">
+    <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true">06</span>Cybersecurity Agent Systems</div>
+      <h2>From one answer to a chain of decisions</h2>
+      <p class="lede">The harness organizes plans, tools, memory, and verification—and decides when to act, recover, or stop.</p>
+    </div>
+    <div class="panel viewer reveal"><div class="viewer-bar"><div class="tabs" role="tablist" aria-label="From one answer to a chain of decisions figures"><button class="tab" id="agents-t0" type="button" role="tab" tabindex="0" aria-controls="agents-f0" aria-selected="true"><span class="tab-no">Fig. 10</span>Runtime loop</button><button class="tab" id="agents-t1" type="button" role="tab" tabindex="-1" aria-controls="agents-f1" aria-selected="false"><span class="tab-no">Fig. 11</span>Threat intelligence</button><button class="tab" id="agents-t2" type="button" role="tab" tabindex="-1" aria-controls="agents-f2" aria-selected="false"><span class="tab-no">Fig. 12</span>Malware analysis</button><button class="tab" id="agents-t3" type="button" role="tab" tabindex="-1" aria-controls="agents-f3" aria-selected="false"><span class="tab-no">Fig. 13</span>Execution structures</button></div><span class="viewer-hint"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4m-5-8v6m-3-3h6"/></svg>Click to zoom</span></div>
+      <figure class="fig" id="agents-f0" role="tabpanel" aria-labelledby="agents-t0">
+        <button class="zoom" type="button" data-full="assets/fig/agent-runtime.svg" data-download="agent-runtime.svg" aria-label="Explore figure: Runtime loop">
+          <img src="assets/fig/agent-runtime.svg" width="975" height="578" alt="Runtime mechanisms and environment interfaces for cybersecurity agents. Planning and tool interaction, retrieval from memory, and outcome validation support ongoing task execution through interfaces to cyber ranges and security investigation and response systems." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 10</span><span class="fcap">Runtime mechanisms traced through one alert investigation, from planning to validated outcome.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+      <figure class="fig" id="agents-f1" hidden role="tabpanel" aria-labelledby="agents-t1">
+        <button class="zoom" type="button" data-full="assets/fig/cti-evidence-provenance.svg" data-download="cti-evidence-provenance.svg" aria-label="Explore figure: Threat intelligence">
+          <img src="assets/fig/cti-evidence-provenance.svg" width="975" height="465" alt="Relational retrieval, source tracing, and analyst review in threat intelligence. The example links APT29 exploitation of TeamCity vulnerability CVE-2023-42793, information about patched versions, and asset records to verify analytical conclusions." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 11</span><span class="fcap">Threat intelligence connects claims to evidence and source provenance.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+      <figure class="fig" id="agents-f2" hidden role="tabpanel" aria-labelledby="agents-t2">
+        <button class="zoom" type="button" data-full="assets/fig/malware-multiview.svg" data-download="malware-multiview.svg" aria-label="Explore figure: Malware analysis">
+          <img src="assets/fig/malware-multiview.svg" width="975" height="540" alt="Multi-view malware analysis and behavior interpretation. Analysis of the illustrative application wallpaper.apk combines static code, call relationships, execution traces, and UI state to examine SMS-sending behavior and its triggering conditions for analyst review." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 12</span><span class="fcap">Connect code, call relations, execution traces, and UI behavior.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+      <figure class="fig" id="agents-f3" hidden role="tabpanel" aria-labelledby="agents-t3">
+        <button class="zoom" type="button" data-full="assets/fig/agent-architectures.svg" data-download="agent-architectures.svg" aria-label="Explore figure: Execution structures">
+          <img src="assets/fig/agent-architectures.svg" width="975" height="507" alt="Three execution structures for cybersecurity agents: fixed workflows with predefined steps, dynamic single agents that revise actions based on observations, and multi-agent systems that coordinate through role allocation and shared state." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 13</span><span class="fcap">Fixed workflows, dynamic agents, and multi-agent coordination.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+    </div>
+    <div class="findings"><div class="sec-stats n3 reveal"><div><b>3</b><span>execution structures</span></div><div><b>17 → 19</b><span>Cybench tasks (of 33) when CSI harnesses share findings</span></div><div><b>$7,322 → $5,480</b><span>CSI cost, independent vs. shared blackboard</span></div></div><div class="points n4"><div class="point reveal" style="--i:0"><span class="point-no" aria-hidden="true">01</span><h3>Plans over explicit state</h3><p>PentestGPT uses task trees; STAIR represents incidents as Graph-as-State.</p></div><div class="point reveal" style="--i:1"><span class="point-no" aria-hidden="true">02</span><h3>Interfaces built for analysis</h3><p>EnIGMA preserves debugging sessions; IRIS combines model inference with CodeQL analysis.</p></div><div class="point reveal" style="--i:2"><span class="point-no" aria-hidden="true">03</span><h3>Coordination through shared state</h3><p>Sharing CSI findings improves Cybench coverage while reducing cost relative to independent harnesses.</p></div><div class="point reveal" style="--i:3"><span class="point-no" aria-hidden="true">04</span><h3>Validation and permissions</h3><p>Approval gates and independent checks constrain what agents can execute.</p></div></div><div class="works reveal"><span class="works-label">Representative work</span><ul class="work-list"><li>PentestGPT</li> <li>EnIGMA</li> <li>IRIS</li> <li>PentestAgent</li> <li>STAIR</li> <li>TRACKAGENT</li> <li>CTIFoundry</li> <li>Malaika</li> <li>Moirae</li> <li>Agentra</li> <li>CSI</li> <li>LlamaFirewall</li></ul></div></div>
+    
+    </div>
+  </section>
+  <section class="block chapter band" id="evaluation" style="--hue:#a33f6c;--hue-soft:#f8e3ec">
+    <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true">07</span>Capability Evaluation and Benchmarks</div>
+      <h2>A score is only part of the story</h2>
+      <p class="lede">Inputs, permissions, success criteria, and budgets define what a benchmark score actually measures.</p>
+    </div>
+    <div class="panel viewer reveal"><div class="viewer-bar"><div class="tabs" role="tablist" aria-label="A score is only part of the story figures"><button class="tab" id="evaluation-t0" type="button" role="tab" tabindex="0" aria-controls="evaluation-f0" aria-selected="true"><span class="tab-no">Fig. 14</span>Inputs &amp; checks</button><button class="tab" id="evaluation-t1" type="button" role="tab" tabindex="-1" aria-controls="evaluation-f1" aria-selected="false"><span class="tab-no">Fig. 15</span>101 benchmarks</button><button class="tab" id="evaluation-t2" type="button" role="tab" tabindex="-1" aria-controls="evaluation-f2" aria-selected="false"><span class="tab-no">Fig. 17</span>Success vs. cost</button></div><span class="viewer-hint"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4m-5-8v6m-3-3h6"/></svg>Click to zoom</span></div>
+      <figure class="fig" id="evaluation-f0" role="tabpanel" aria-labelledby="evaluation-t0">
+        <button class="zoom" type="button" data-full="assets/fig/benchmark-task-evidence.svg" data-download="benchmark-task-evidence.svg" aria-label="Explore figure: Inputs &amp; checks">
+          <img src="assets/fig/benchmark-task-evidence.svg" width="975" height="501" alt="Task types, inputs, outputs, and validation methods in cybersecurity benchmarks: reference answers or labels for knowledge questions and vulnerability classification; execution-based checks for vulnerability reproduction, exploitation, and repair; and reference-based finding matching for incident investigation and rubric-based model assessment of investigation reports and response plans." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 14</span><span class="fcap">What each benchmark gives, asks for, and how the result is checked.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+      <figure class="fig" id="evaluation-f1" hidden role="tabpanel" aria-labelledby="evaluation-t1">
+        <button class="zoom" type="button" data-full="assets/fig/benchmark-timeline.svg" data-download="benchmark-timeline.svg" aria-label="Explore figure: 101 benchmarks">
+          <img src="assets/fig/benchmark-timeline.svg" width="488" height="218" alt="Release years and task coverage of the 101 cybersecurity benchmarks and versions catalogued in this survey." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 15</span><span class="fcap">101 benchmarks and versions, mapped by release year and task.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+      <figure class="fig" id="evaluation-f2" hidden role="tabpanel" aria-labelledby="evaluation-t2">
+        <button class="zoom" type="button" data-full="assets/fig/success-cost-tradeoffs.svg" data-download="success-cost-tradeoffs.svg" aria-label="Explore figure: Success vs. cost">
+          <img src="assets/fig/success-cost-tradeoffs.svg" width="975" height="495" alt="Success rates, costs, and harness comparisons in Wiz Cyber Model Arena (October 11, 2026 snapshot). Left: 28 configurations of 14 models across two harnesses and their Pareto frontier; cost per successful task (USD/solve, log scale) against macro-average pass@1 across four task categories. Right: pass@1 differences (CC−ADK, percentage points) and cost-per-success ratios (CC/ADK) for the same model under Claude Code (CC) and ADK ReAct." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 17</span><span class="fcap">Success versus cost across 28 model–harness configurations in Wiz Cyber Model Arena.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+    </div>
+    <div class="findings"><div class="sec-stats n3 reveal"><div><b>101</b><span>benchmarks and versions catalogued</span></div><div><b>28</b><span>model–harness configurations compared</span></div><div><b>15 / 17 / 19</b><span>Cybench tasks: best single harness, union of four, shared blackboard</span></div></div><div class="points n4"><div class="point reveal" style="--i:0"><span class="point-no" aria-hidden="true">01</span><h3>Paired versions expose shortcuts</h3><p>Require correct decisions on both vulnerable and repaired versions—not just high single-sample F1.</p></div><div class="point reveal" style="--i:1"><span class="point-no" aria-hidden="true">02</span><h3>Clues change completion</h3><p>BountyBench and ProtoArena show how task scope and supplied clues change completion rates.</p></div><div class="point reveal" style="--i:2"><span class="point-no" aria-hidden="true">03</span><h3>Separate model from harness</h3><p>Keep the model fixed when measuring gains from tools, orchestration, or shared state.</p></div><div class="point reveal" style="--i:3"><span class="point-no" aria-hidden="true">04</span><h3>Report cost with success</h3><p>Report success alongside cost, time, and steps; better coverage need not mean lower cost.</p></div></div><div class="works reveal"><span class="works-label">Representative work</span><ul class="work-list"><li>CyberGym</li> <li>ExploitGym</li> <li>Cybench</li> <li>CVE-Bench</li> <li>BountyBench</li> <li>ProtoArena</li> <li>PrimeVul</li> <li>CTIBench</li> <li>SIR-Bench</li> <li>PatchEval</li> <li>CyberSecEval 4</li> <li>Wiz Cyber Model Arena</li></ul></div></div>
+    
+    </div>
+  </section>
+  <section class="block chapter" id="applications" style="--hue:#3c4e66;--hue-soft:#e9eef5">
+    <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true">08</span>Cybersecurity Applications</div>
+      <h2>Turn findings into accepted outcomes</h2>
+      <p class="lede">Practical value depends on validated deliverables, human review, and the work saved across the full response cycle.</p>
+    </div>
+    <div class="panel viewer reveal"><div class="viewer-bar"><span class="viewer-title"><span class="tab-no">Fig. 18</span>Interfaces &amp; loop</span><span class="viewer-hint"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4m-5-8v6m-3-3h6"/></svg>Click to zoom</span></div>
+      <figure class="fig" id="applications-f0">
+        <button class="zoom" type="button" data-full="assets/fig/application-interfaces.svg" data-download="application-interfaces.svg" aria-label="Explore figure: Interfaces &amp; loop">
+          <img src="assets/fig/application-interfaces.svg" width="975" height="553" alt="Cybersecurity application interfaces and an alert-investigation workflow. (a) Inputs, task outputs, validation methods, and users across code repositories, traffic and logs, alerts and tickets, endpoints and files, and cloud services and APIs. (b) Alert queries, verification, response planning, analyst approval, and execution feedback." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 18</span><span class="fcap">Five application interfaces connect inputs, validation, and accepted outcomes.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+    </div>
+    <div class="findings"><div class="points n4"><div class="point reveal" style="--i:0"><span class="point-no" aria-hidden="true">01</span><h3>Repair &amp; regression</h3><p>Check builds, vulnerability regression, functionality, dependencies, and maintainer acceptance.</p></div><div class="point reveal" style="--i:1"><span class="point-no" aria-hidden="true">02</span><h3>Alert to response</h3><p>Correlate users, hosts, and events before moving from an alert to an approved response.</p></div><div class="point reveal" style="--i:2"><span class="point-no" aria-hidden="true">03</span><h3>Traceable conclusions</h3><p>Ground malware and forensic conclusions in behavior, records, and a reliable timeline.</p></div><div class="point reveal" style="--i:3"><span class="point-no" aria-hidden="true">04</span><h3>Measure total work</h3><p>Track useful discoveries, review burden, erroneous responses, and time to deployment.</p></div></div><div class="works reveal"><span class="works-label">Representative work</span><ul class="work-list"><li>CTIFoundry</li> <li>SafeCoder</li> <li>AutoPatchBench</li> <li>LLM4Decompile</li> <li>MalEval</li> <li>DeepSOC</li> <li>PhishTriage</li> <li>CVE-Bench</li> <li>CyberSleuth</li> <li>GPTScan</li> <li>FirmAgent</li> <li>HoneyGPT</li></ul></div></div>
+    
+    </div>
+  </section>
+  <section class="block chapter band" id="outlook" style="--hue:#1f3a8a;--hue-soft:#e8eefc">
+    <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true">09</span>Discussion and Future Directions</div>
+      <h2>Faster discovery. A different bottleneck.</h2>
+      <p class="lede">As discovery accelerates, reproduction, repair, and deployment become critical—and agents join the security boundary.</p>
+    </div>
+    <div class="panel viewer reveal"><div class="viewer-bar"><div class="tabs" role="tablist" aria-label="Faster discovery. A different bottleneck. figures"><button class="tab" id="outlook-t0" type="button" role="tab" tabindex="0" aria-controls="outlook-f0" aria-selected="true"><span class="tab-no">Fig. 19</span>Remediation backlog</button><button class="tab" id="outlook-t1" type="button" role="tab" tabindex="-1" aria-controls="outlook-f1" aria-selected="false"><span class="tab-no">Fig. 20</span>Trust boundaries</button></div><span class="viewer-hint"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4m-5-8v6m-3-3h6"/></svg>Click to zoom</span></div>
+      <figure class="fig" id="outlook-f0" role="tabpanel" aria-labelledby="outlook-t0">
+        <button class="zoom" type="button" data-full="assets/fig/vulnerability-governance.svg" data-download="vulnerability-governance.svg" aria-label="Explore figure: Remediation backlog">
+          <img src="assets/fig/vulnerability-governance.svg" width="975" height="478" alt="Backlog dynamics across vulnerability discovery, validation, repair, and deployment. B(t), D(t), and F(t) count outstanding items at the start of a period, newly confirmed items, and items resolved during that period; the counting unit is a vulnerability–affected-asset pair." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 19</span><span class="fcap">Discovery removes risk only when validated findings reach remediation.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+      <figure class="fig" id="outlook-f1" hidden role="tabpanel" aria-labelledby="outlook-t1">
+        <button class="zoom" type="button" data-full="assets/fig/trust-boundaries.svg" data-download="trust-boundaries.svg" aria-label="Explore figure: Trust boundaries">
+          <img src="assets/fig/trust-boundaries.svg" width="975" height="476" alt="Trust boundaries and human intervention in cybersecurity agents. An alert-investigation example illustrates external-content handling, memory provenance, action authorization and human approval, and independent validation of conclusions." loading="lazy" decoding="async">
+        </button>
+        <figcaption><span class="fno">Figure 20</span><span class="fcap">Keep untrusted content, permissions, and independent verification on clear boundaries.</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
+      </figure>
+    </div>
+    <div class="findings"><div class="points n3"><div class="point reveal" style="--i:0"><span class="point-no" aria-hidden="true">01</span><h3>Measure remediation</h3><p>Count accepted repairs, deployment time, and exposure duration alongside discoveries.</p></div><div class="point reveal" style="--i:1"><span class="point-no" aria-hidden="true">02</span><h3>Agents are part of the boundary</h3><p>Treat external content as untrusted; apply least privilege and independent verification.</p></div><div class="point reveal" style="--i:2"><span class="point-no" aria-hidden="true">03</span><h3>Hand off with the evidence</h3><p>Escalate uncertainty with original evidence, completed checks, and the consequences of each option.</p></div></div><div class="works reveal"><span class="works-label">Representative work</span><ul class="work-list"><li>ExploitGym</li> <li>BountyBench</li> <li>Big Sleep</li> <li>FuzzingBrain CRS</li> <li>SysEvolve</li> <li>CyberEvolver</li> <li>MiMo</li> <li>AgentDojo</li> <li>InjecAgent</li></ul></div></div>
+    
+    </div>
+  </section>
+  <section class="block" id="directions" style="--hue:#1c62c4;--hue-soft:#e9f1fd">
+    <div class="wrap">
+    <div class="sec-head reveal quote">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>Future directions</div>
+      <h2>Adversarial interaction drives intelligence; intelligence advances security.</h2>
+      <p class="lede">Four directions from Section 9.8 for turning stronger capability into lasting security benefit.</p>
+    </div>
+    <div class="dirs"><div class="dir reveal" style="--i:0"><span class="dir-no" aria-hidden="true">01</span><h3>AI&#8209;native security architectures</h3><p>Build perception, reasoning, decisions, and feedback learning in from the outset; validated experience feeds further learning.</p></div><div class="dir reveal" style="--i:1"><span class="dir-no" aria-hidden="true">02</span><h3>Transferable failure recovery</h3><p>Diagnose invalid hypotheses, tool faults, and interrupted paths, then choose alternatives while retaining useful findings.</p></div><div class="dir reveal" style="--i:2"><span class="dir-no" aria-hidden="true">03</span><h3>Alternating model–&#8288;harness updates</h3><p>Revise the harness from failures, update the model on the resulting interactions, and test whether gains transfer.</p></div><div class="dir reveal" style="--i:3"><span class="dir-no" aria-hidden="true">04</span><h3>From discovery to remediation</h3><p>Track backlogs, confirmed and resolved issues, review hours, and exposure duration over time.</p></div></div>
+    </div>
+  </section>
+  <section class="block band" id="cite" style="--hue:#1c62c4;--hue-soft:#e9f1fd">
+    <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="badge" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 7h4v4c0 3-1.5 5-4 6M15 7h4v4c0 3-1.5 5-4 6"/></svg></span>Citation</div>
+      <h2>Cite this survey</h2>
+      <p class="lede">If you find this survey useful for your research, please cite it.</p>
+    </div>
+    <div class="panel cite reveal"><div class="cite-toolbar"><span class="terminal-label">BibTeX</span><button class="copy" type="button">Copy</button></div><pre id="bibtex">@article{miao2026llmcybersecurity,
+  title   = {Large Language Models for Cybersecurity: A Survey of Data,
+             Training, Models, Agent Systems, Evaluation, and Applications},
+  author  = {Miao, Fasheng and Wang, Yuanda and Hu, Zhaoyu and Zeng, Jiutian and
+             Li, Xiang and Zhuang, Shuying and Zhang, Yiliang and Weng, Ziang and
+             Dai, Chengwei and Li, Junjie and Zhang, Haokang and Jia, Ruipeng and
+             Fu, Jiadong and Ge, Yang and Lu, Xiuqi and Tian, Zhenhao and
+             Qiu, Yuqi and Xu, Zuyao and Sun, Lu and Huang, Aichun and
+             An, Changqing and Han, Xinhui and Zhang, Chao and Huang, Longtao and
+             Duan, Haixin and Liu, Zheli and Wang, Jilong},
+  year    = {2026},
+  note    = {Version of October 21, 2026}
+}</pre></div>
+    <p class="note">The paper link will be added on release.</p>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <span class="footer-brand"><span class="brand-mark"><img src="assets/img/mascot-256.png" alt="" width="28" height="28"></span><span>Large Language Models for Cybersecurity<small>Version of October 21, 2026</small></span></span>
+    <div class="footer-links"><a href="#overview">Overview</a><a href="#directions">Outlook</a><a href="#cite">Citation</a><a href="#top">Back to top ↑</a></div>
+  </div>
+</footer>
+<a class="back-top" href="#top" aria-label="Back to top" hidden><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20V4m-6 6 6-6 6 6"/></svg></a>
+<dialog class="lightbox" id="lightbox" aria-label="Figure explorer" aria-describedby="lb-caption">
+  <div class="lb-toolbar">
+    <span class="lb-title">Figure explorer <small>Vector original</small></span>
+    <div class="lb-controls" role="group" aria-label="Zoom controls">
+      <button class="lb-out" type="button" aria-label="Zoom out">−</button>
+      <output class="lb-scale" aria-live="polite">100%</output>
+      <button class="lb-in" type="button" aria-label="Zoom in">+</button>
+      <button class="lb-fit" type="button">Fit</button>
+      <a class="lb-download" download>Save SVG</a>
+      <button class="lb-close" type="button" aria-label="Close figure explorer">Close</button>
+    </div>
+  </div>
+  <div class="lb-viewport" tabindex="0" aria-label="Figure canvas; use zoom buttons and scroll to explore">
+    <div class="lb-stage"><img alt="" draggable="false"></div>
+  </div>
+  <div class="lb-footer"><p class="lb-cap" id="lb-caption"></p><span>Zoom · drag to explore</span></div>
+</dialog>
+<script src="assets/site.js"></script>
+</body>
+</html>
