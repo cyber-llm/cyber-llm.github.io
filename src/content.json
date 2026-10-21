@@ -1,0 +1,925 @@
+{
+ "hero": {
+  "title": "Large Language Models for Cybersecurity",
+  "title_html": "<span class=\"title-line\">Large Language Models</span><span class=\"title-line\">for <span class=\"accent\">Cybersecurity</span></span>",
+  "subtitle": "A Survey of Data, Training, Models, Agent Systems, Evaluation, and Applications",
+  "eyebrow": "A survey · October 2026",
+  "tagline": "From understanding threats to taking action. How data, models, and agents build security capability.",
+  "paper_url": "",
+  "footer_date": "Version of October 21, 2026",
+  "stats": [
+   {
+    "value": "6",
+    "label": "research dimensions"
+   },
+   {
+    "value": "556",
+    "label": "works cited"
+   },
+   {
+    "value": "101",
+    "label": "benchmarks catalogued"
+   },
+   {
+    "value": "20",
+    "label": "figures"
+   }
+  ],
+  "authors": [
+   {
+    "name": "Fasheng Miao",
+    "affil": "1,2,*"
+   },
+   {
+    "name": "Yuanda Wang",
+    "affil": "1,3"
+   },
+   {
+    "name": "Zhaoyu Hu",
+    "affil": "1"
+   },
+   {
+    "name": "Jiutian Zeng",
+    "affil": "1"
+   },
+   {
+    "name": "Xiang Li",
+    "affil": "4"
+   },
+   {
+    "name": "Shuying Zhuang",
+    "affil": "5"
+   },
+   {
+    "name": "Yiliang Zhang",
+    "affil": "1"
+   },
+   {
+    "name": "Ziang Weng",
+    "affil": "1"
+   },
+   {
+    "name": "Chengwei Dai",
+    "affil": "1"
+   },
+   {
+    "name": "Junjie Li",
+    "affil": "1"
+   },
+   {
+    "name": "Haokang Zhang",
+    "affil": "1"
+   },
+   {
+    "name": "Ruipeng Jia",
+    "affil": "6"
+   },
+   {
+    "name": "Jiadong Fu",
+    "affil": "7"
+   },
+   {
+    "name": "Yang Ge",
+    "affil": "8"
+   },
+   {
+    "name": "Xiuqi Lu",
+    "affil": "2"
+   },
+   {
+    "name": "Zhenhao Tian",
+    "affil": "2"
+   },
+   {
+    "name": "Yuqi Qiu",
+    "affil": "4"
+   },
+   {
+    "name": "Zuyao Xu",
+    "affil": "4"
+   },
+   {
+    "name": "Lu Sun",
+    "affil": "4"
+   },
+   {
+    "name": "Aichun Huang",
+    "affil": "4"
+   },
+   {
+    "name": "Changqing An",
+    "affil": "2"
+   },
+   {
+    "name": "Xinhui Han",
+    "affil": "3"
+   },
+   {
+    "name": "Chao Zhang",
+    "affil": "2"
+   },
+   {
+    "name": "Longtao Huang",
+    "affil": "1,6"
+   },
+   {
+    "name": "Haixin Duan",
+    "affil": "2"
+   },
+   {
+    "name": "Zheli Liu",
+    "affil": "4"
+   },
+   {
+    "name": "Jilong Wang",
+    "affil": "2,9"
+   }
+  ],
+  "affiliations": [
+   "XekRung Team, Alibaba Group",
+   "Tsinghua University",
+   "Peking University",
+   "Nankai University",
+   "Zhongguancun Laboratory",
+   "Minjur Team, Alibaba Group",
+   "Institute of Information Engineering, Chinese Academy of Sciences",
+   "Institute of Software, Chinese Academy of Sciences",
+   "Quan Cheng Laboratory"
+  ],
+  "logos": [
+   {
+    "file": "alibaba",
+    "alt": "Alibaba Group"
+   },
+   {
+    "file": "tsinghua",
+    "alt": "Tsinghua University"
+   },
+   {
+    "file": "pku",
+    "alt": "Peking University"
+   },
+   {
+    "file": "nankai",
+    "alt": "Nankai University"
+   },
+   {
+    "file": "zgc",
+    "alt": "Zhongguancun Laboratory"
+   },
+   {
+    "file": "iie",
+    "alt": "Institute of Information Engineering, CAS"
+   },
+   {
+    "file": "iscas",
+    "alt": "Institute of Software, CAS"
+   },
+   {
+    "file": "qcl",
+    "alt": "Quan Cheng Laboratory"
+   }
+  ],
+  "contact": {
+   "text": "Discussion and feedback are welcome at",
+   "email": "mfs24@mails.tsinghua.edu.cn"
+  },
+  "site_url": "https://cyber-llm.github.io/"
+ },
+ "nav": [
+  {
+   "id": "overview",
+   "label": "Overview"
+  },
+  {
+   "id": "landscape",
+   "label": "Landscape"
+  },
+  {
+   "id": "foundations",
+   "label": "Foundations"
+  },
+  {
+   "id": "data",
+   "label": "Data"
+  },
+  {
+   "id": "training",
+   "label": "Training"
+  },
+  {
+   "id": "models",
+   "label": "Models"
+  },
+  {
+   "id": "agents",
+   "label": "Agents"
+  },
+  {
+   "id": "evaluation",
+   "label": "Evaluation"
+  },
+  {
+   "id": "applications",
+   "label": "Applications"
+  },
+  {
+   "id": "outlook",
+   "label": "Outlook"
+  },
+  {
+   "id": "cite",
+   "label": "Cite"
+  }
+ ],
+ "overview": {
+  "kicker": "Overview",
+  "title": "One field. Six connected perspectives.",
+  "lede": "Security capability emerges from data, training, and the systems that turn model outputs into verified action.",
+  "abstract": [
+   "Advances in language understanding, code reasoning, and tool use are enabling cybersecurity agents to progress from question answering and single-step analysis to vulnerability research, incident investigation, and multistage task execution. This survey examines research on Large Language Models (LLMs) for cybersecurity across six dimensions: **data, training, models, agent systems, evaluation, and applications**.",
+   "We argue that cybersecurity LLMs are progressing **from acquiring domain knowledge to learning how to perform interactive tasks**. Task quality and cost depend on both the model and its harness: the model reasons and selects actions, while the harness organizes information, tools, and execution state."
+  ],
+  "insights": [
+   {
+    "head": "One framework, six dimensions",
+    "text": "Connects data, training, models, agent systems, evaluation, and applications through inputs, outputs, updates, validation, and resource use."
+   },
+   {
+    "head": "Cross-study comparisons",
+    "text": "Examines how domain adaptation depends on the task, how harnesses shape model behavior, and how validation limits operational benefit."
+   },
+   {
+    "head": "Resources and a research agenda",
+    "text": "Organizes security datasets, models, agents, and benchmarks, and sets open questions in agentic training and model–harness optimization."
+   }
+  ],
+  "dimensions": [
+   {
+    "name": "Data",
+    "hue": "teal",
+    "text": "Knowledge & experience",
+    "section": "3"
+   },
+   {
+    "name": "Training",
+    "hue": "orange",
+    "text": "Learning & adaptation",
+    "section": "4"
+   },
+   {
+    "name": "Models",
+    "hue": "purple",
+    "text": "Specialized & general",
+    "section": "5"
+   },
+   {
+    "name": "Agent systems",
+    "hue": "green",
+    "text": "Planning & execution",
+    "section": "6"
+   },
+   {
+    "name": "Evaluation",
+    "hue": "rasp",
+    "text": "Evidence & trade-offs",
+    "section": "7"
+   },
+   {
+    "name": "Applications",
+    "hue": "slate",
+    "text": "Analysis & response",
+    "section": "8"
+   }
+  ],
+  "insights_title": "Three contributions"
+ },
+ "sections": [
+  {
+   "id": "landscape",
+   "num": "1",
+   "hue": "rust",
+   "kicker": "Section 1 · Introduction",
+   "title": "A shared foundation for attack and defense",
+   "lede": "The same models, knowledge, and tools support offensive research and defensive operations.",
+   "figures": [
+    {
+     "file": "cybersecurity_adversarial_coevolution.pdf",
+     "tab": "Landscape",
+     "caption": "LLM-enabled cyber offense and defense: applications, shared foundations, and a timeline of representative work.",
+     "summary": "Attack and defense share models, knowledge, tools, and execution feedback.",
+     "no": "1",
+     "source_pdf": "../finalimages/images/Fig01_cybersecurity_adversarial_coevolution.pdf"
+    },
+    {
+     "file": "Cybersecurity_Survey_Taxonomy.pdf",
+     "tab": "Taxonomy",
+     "caption": "A taxonomy of cybersecurity LLM research across six dimensions, with representative studies.",
+     "summary": "Six research dimensions and their representative studies, mapped to Sections 3–8.",
+     "no": "2",
+     "source_pdf": "src/figsrc-20261021/Fig02_Cybersecurity_Survey_Taxonomy.pdf"
+    }
+   ],
+   "points": [
+    {
+     "head": "Offensive applications",
+     "text": "Reconnaissance, vulnerability research, exploit chains, and social engineering."
+    },
+    {
+     "head": "Defensive applications",
+     "text": "Threat detection, vulnerability remediation, incident response, and forensics."
+    },
+    {
+     "head": "Shared feedback",
+     "text": "Execution results become new training material and policy feedback."
+    },
+    {
+     "head": "Context matters",
+     "text": "The balance depends on access, resources, validation, and deployment."
+    }
+   ],
+   "works": [
+    "PentestGPT",
+    "Fuzz4All",
+    "Big Sleep",
+    "HPTSA",
+    "EnIGMA",
+    "CAI",
+    "Sec-PaLM 2",
+    "SEvenLLM",
+    "AutoPatch",
+    "CyberSleuth",
+    "Foundation-Sec"
+   ],
+   "paper_title": "Introduction"
+  },
+  {
+   "id": "foundations",
+   "num": "2",
+   "hue": "blue",
+   "kicker": "Section 2 · Foundations",
+   "title": "Understand the task before the score",
+   "lede": "Shared inputs do not imply shared objectives. Compare tasks, capability building, and evaluation together.",
+   "figures": [
+    {
+     "file": "security_scenarios_overview.pdf",
+     "source_pdf": "../finalimages/images/Fig03_security_scenarios_overview.pdf",
+     "tab": "Tasks & challenges",
+     "caption": "Cybersecurity tasks: objects of analysis, representative workflows, and shared challenges.",
+     "summary": "Security objects, representative workflows, and six shared challenges.",
+     "no": "3"
+    },
+    {
+     "file": "cybersecurity_model_harness_timeline.pdf",
+     "tab": "Models & harnesses",
+     "caption": "Timeline of cybersecurity models and agent systems, with an overview of model–harness collaboration.",
+     "summary": "How cybersecurity models and agent harnesses evolved together.",
+     "no": "4",
+     "source_pdf": "src/figsrc-20261021/Fig04_cybersecurity_model_harness_timeline.pdf"
+    },
+    {
+     "file": "cybersecurity_capability_evolution.pdf",
+     "tab": "Capability expansion",
+     "caption": "Evolution of cybersecurity LLM capabilities and their associated training objectives and runtime mechanisms.",
+     "summary": "Six aspects of capability expansion: representation through feedback-driven learning.",
+     "no": "5",
+     "source_pdf": "../finalimages/images/Fig05en_capability_v3.pdf"
+    },
+    {
+     "file": "cybersecurity_three_axis_framework.pdf",
+     "tab": "Three axes",
+     "caption": "A three-axis analytical framework: tasks, capability development, and evaluation.",
+     "summary": "Compare tasks, capability building, and evaluation under matched conditions.",
+     "no": "6",
+     "source_pdf": "../finalimages/images/Fig06_cybersecurity_three_axis_framework.pdf"
+    }
+   ],
+   "points": [
+    {
+     "head": "Four capability levels",
+     "text": "Knowledge understanding → single-step analysis → tool interaction → multistep execution."
+    },
+    {
+     "head": "Six aspects of expansion",
+     "text": "Representations, instructions, tools, verifiable reasoning, multistage execution, and feedback-driven learning."
+    },
+    {
+     "head": "The task changes the problem",
+     "text": "Function judgment, repository localization, and vulnerability reproduction need different evidence and tools."
+    },
+    {
+     "head": "The harness changes the result",
+     "text": "On 33 Cybench tasks, CSI's best single harness solves 15; shared-blackboard coordination solves 19."
+    }
+   ],
+   "works": [
+    "SecureBERT",
+    "HackMentor",
+    "EnIGMA",
+    "R2Vul",
+    "Big Sleep",
+    "CTF-Dojo",
+    "PrimeVul",
+    "Antares",
+    "CyberGym",
+    "Cybench",
+    "CSI",
+    "PhishTriage"
+   ],
+   "paper_title": "Cybersecurity Tasks, Capability Evolution, and Analytical Framework"
+  },
+  {
+   "id": "data",
+   "num": "3",
+   "hue": "teal",
+   "kicker": "Section 3 · Data",
+   "title": "From raw data to verified experience",
+   "lede": "Build data for the learning objective. Preserve provenance, validate outcomes, and keep training separate from evaluation.",
+   "figures": [
+    {
+     "file": "security_data_pipeline.pdf",
+     "tab": "Data pipeline",
+     "caption": "Security data construction: organizing domain corpora, instructions, interaction trajectories, and preference data; synthesizing, filtering, and validating samples; and separating training from evaluation.",
+     "summary": "From security sources to validated data, with training–evaluation separation.",
+     "no": "7",
+     "source_pdf": "src/figsrc-20261021/Fig07_security_data_pipeline.pdf"
+    }
+   ],
+   "stats": [
+    {
+     "value": "≈20B",
+     "label": "security tokens in SecCorpus"
+    },
+    {
+     "value": "266,180",
+     "label": "RedSage multiturn conversations"
+    },
+    {
+     "value": "≈219,700",
+     "label": "MiST seeds"
+    }
+   ],
+   "points": [
+    {
+     "head": "Filtered domain corpora",
+     "text": "SecCorpus combines 4,000+ keywords with a classifier to select security text."
+    },
+    {
+     "head": "From documents to supervision",
+     "text": "Instructions, reasoning traces, and preference pairs turn documents into task supervision."
+    },
+    {
+     "head": "Environments and trajectories",
+     "text": "Fix initial states; record observations, actions, and outcomes; retain validated trajectories."
+    },
+    {
+     "head": "Validation and separation",
+     "text": "Check executable outcomes and split related code, patches, and reports together."
+    }
+   ],
+   "works": [
+    "SecCorpus",
+    "Foundation-Sec",
+    "Primus",
+    "RedSage",
+    "MiST",
+    "R2Vul",
+    "ARVO",
+    "kGym",
+    "CTF-Dojo",
+    "Cyber-Zero",
+    "CyberForge",
+    "PrimeVul"
+   ],
+   "paper_title": "Security Data and Interactive Environments"
+  },
+  {
+   "id": "training",
+   "num": "4",
+   "hue": "orange",
+   "kicker": "Section 4 · Training",
+   "title": "Train for knowledge, judgment, and action",
+   "lede": "Different objectives build different capabilities. Validated experience connects training stages to later improvements.",
+   "figures": [
+    {
+     "file": "security_domain_training_pipeline.pdf",
+     "source_pdf": "../finalimages/images/Fig08_security_domain_training_pipeline.pdf",
+     "tab": "Training pipeline",
+     "caption": "Training and domain adaptation for cybersecurity LLMs: continued pretraining, supervised fine-tuning, preference optimization, reinforcement learning, distillation, and continual learning with experience replay.",
+     "summary": "Domain adaptation, from continued pretraining to learning from validated experience.",
+     "no": "8"
+    },
+    {
+     "file": "feedback_learning.pdf",
+     "tab": "Feedback learning",
+     "caption": "Learning from interaction feedback through parameter updates and runtime adaptation. Execution traces and validation feedback support supervised fine-tuning and reinforcement learning, while selected experience supports context and memory updates, retrieval, and replanning.",
+     "summary": "Validated feedback updates model parameters or runtime context and memory.",
+     "no": "9",
+     "source_pdf": "../finalimages/images/Fig09_feedback_learning.pdf"
+    }
+   ],
+   "stats": [
+    {
+     "value": "11.7B",
+     "label": "RedSage CPT tokens after deduplication"
+    },
+    {
+     "value": "5.0% → 17.5%",
+     "label": "Qwen3-32B pass@1 on Cybench after CTF-Dojo SFT"
+    },
+    {
+     "value": "7,000+",
+     "label": "task environments in MiMo-V2.6 RL"
+    }
+   ],
+   "points": [
+    {
+     "head": "Domain knowledge",
+     "text": "Continued pretraining blends security corpora with general data to build domain knowledge."
+    },
+    {
+     "head": "Action imitation",
+     "text": "Trajectory SFT supervises analyses, tool calls, and answers; tool returns remain context."
+    },
+    {
+     "head": "Judgment & rewards",
+     "text": "Preference optimization and verifiable rewards improve judgments through explicit feedback."
+    },
+    {
+     "head": "Experience reuse",
+     "text": "Agentic RL updates action policies; runtime feedback can also improve the harness."
+    }
+   ],
+   "works": [
+    "Foundation-Sec",
+    "Primus",
+    "RedSage",
+    "MiST",
+    "Cyber-Zero",
+    "CTF-Dojo",
+    "R2Vul",
+    "Minerva",
+    "Antares",
+    "VulAgentRL",
+    "Pentest-R1",
+    "Meta-SecAlign"
+   ],
+   "paper_title": "Training and Domain Adaptation"
+  },
+  {
+   "id": "models",
+   "num": "5",
+   "hue": "purple",
+   "kicker": "Section 5 · Models",
+   "title": "Domain expertise. General capability.",
+   "lede": "Specialized and general-purpose models converge through code, reasoning, and interaction. Their value remains task-dependent.",
+   "figures": [
+    {
+     "file": "cover_model_rankings.pdf",
+     "tab": "Model rankings",
+     "caption": "Model rankings on the CyberGym and ExploitGym leaderboards as of October 11, 2026.",
+     "summary": "CyberGym and ExploitGym rankings · snapshot of October 11, 2026.",
+     "no": "16",
+     "source_pdf": "../finalimages/images/Cover_cover_model_rankings.pdf"
+    }
+   ],
+   "points": [
+    {
+     "head": "Staged domain adaptation",
+     "text": "Foundation-Sec separates Base, Instruct, and Reasoning; XekRung connects domain knowledge to tool use."
+    },
+    {
+     "head": "Verifiable rewards and trajectories",
+     "text": "Minerva uses intelligence-task rewards; CTF-Dojo trains on validated interaction trajectories."
+    },
+    {
+     "head": "Security inside general models",
+     "text": "Coding transfer, expert distillation, and interactive training also build security capability in general models."
+    },
+    {
+     "head": "When does specialization pay?",
+     "text": "Test which tasks benefit reliably from specialization under matched execution conditions."
+    }
+   ],
+   "works": [
+    "Foundation-Sec",
+    "Primus",
+    "RedSage",
+    "XekRung",
+    "Minerva",
+    "CTF-Dojo",
+    "VulAgentRL",
+    "LLM4Decompile",
+    "GPT-5.5-Cyber",
+    "MAI-Cyber-1-Flash",
+    "GLM-5.3",
+    "MiMo-V2.6"
+   ],
+   "paper_title": "Large Language Models for Cybersecurity"
+  },
+  {
+   "id": "agents",
+   "num": "6",
+   "hue": "green",
+   "kicker": "Section 6 · Agent systems",
+   "title": "From one answer to a chain of decisions",
+   "lede": "The harness organizes plans, tools, memory, and verification—and decides when to act, recover, or stop.",
+   "figures": [
+    {
+     "file": "cybersecurity_agent_runtime.pdf",
+     "tab": "Runtime loop",
+     "caption": "Runtime mechanisms and environment interfaces for cybersecurity agents. Planning and tool interaction, retrieval from memory, and outcome validation support ongoing task execution through interfaces to cyber ranges and security investigation and response systems.",
+     "summary": "Runtime mechanisms traced through one alert investigation, from planning to validated outcome.",
+     "no": "10",
+     "source_pdf": "../finalimages/images/Fig10_cybersecurity_agent_runtime.pdf"
+    },
+    {
+     "file": "cti_evidence_provenance.pdf",
+     "tab": "Threat intelligence",
+     "caption": "Relational retrieval, source tracing, and analyst review in threat intelligence. The example links APT29 exploitation of TeamCity vulnerability CVE-2023-42793, information about patched versions, and asset records to verify analytical conclusions.",
+     "summary": "Threat intelligence connects claims to evidence and source provenance.",
+     "no": "11",
+     "source_pdf": "../finalimages/images/Fig11_cti_evidence_provenance.pdf"
+    },
+    {
+     "file": "malware_multiview.pdf",
+     "tab": "Malware analysis",
+     "caption": "Multi-view malware analysis and behavior interpretation. Analysis of the illustrative application wallpaper.apk combines static code, call relationships, execution traces, and UI state to examine SMS-sending behavior and its triggering conditions for analyst review.",
+     "summary": "Connect code, call relations, execution traces, and UI behavior.",
+     "no": "12",
+     "source_pdf": "../finalimages/images/Fig12_malware_multiview.pdf"
+    },
+    {
+     "file": "agent_architectures.pdf",
+     "tab": "Execution structures",
+     "caption": "Three execution structures for cybersecurity agents: fixed workflows with predefined steps, dynamic single agents that revise actions based on observations, and multi-agent systems that coordinate through role allocation and shared state.",
+     "summary": "Fixed workflows, dynamic agents, and multi-agent coordination.",
+     "no": "13",
+     "source_pdf": "../finalimages/images/Fig13_agent_architectures.pdf"
+    }
+   ],
+   "stats": [
+    {
+     "value": "3",
+     "label": "execution structures"
+    },
+    {
+     "value": "17 → 19",
+     "label": "Cybench tasks (of 33) when CSI harnesses share findings"
+    },
+    {
+     "value": "$7,322 → $5,480",
+     "label": "CSI cost, independent vs. shared blackboard"
+    }
+   ],
+   "points": [
+    {
+     "head": "Plans over explicit state",
+     "text": "PentestGPT uses task trees; STAIR represents incidents as Graph-as-State."
+    },
+    {
+     "head": "Interfaces built for analysis",
+     "text": "EnIGMA preserves debugging sessions; IRIS combines model inference with CodeQL analysis."
+    },
+    {
+     "head": "Coordination through shared state",
+     "text": "Sharing CSI findings improves Cybench coverage while reducing cost relative to independent harnesses."
+    },
+    {
+     "head": "Validation and permissions",
+     "text": "Approval gates and independent checks constrain what agents can execute."
+    }
+   ],
+   "works": [
+    "PentestGPT",
+    "EnIGMA",
+    "IRIS",
+    "PentestAgent",
+    "STAIR",
+    "TRACKAGENT",
+    "CTIFoundry",
+    "Malaika",
+    "Moirae",
+    "Agentra",
+    "CSI",
+    "LlamaFirewall"
+   ],
+   "paper_title": "Cybersecurity Agent Systems"
+  },
+  {
+   "id": "evaluation",
+   "num": "7",
+   "hue": "rasp",
+   "kicker": "Section 7 · Evaluation",
+   "title": "A score is only part of the story",
+   "lede": "Inputs, permissions, success criteria, and budgets define what a benchmark score actually measures.",
+   "figures": [
+    {
+     "file": "benchmark_task_evidence.pdf",
+     "tab": "Inputs & checks",
+     "caption": "Task types, inputs, outputs, and validation methods in cybersecurity benchmarks: reference answers or labels for knowledge questions and vulnerability classification; execution-based checks for vulnerability reproduction, exploitation, and repair; and reference-based finding matching for incident investigation and rubric-based model assessment of investigation reports and response plans.",
+     "summary": "What each benchmark gives, asks for, and how the result is checked.",
+     "no": "14",
+     "source_pdf": "src/figsrc-20261021/Fig14_benchmark_task_evidence.pdf"
+    },
+    {
+     "file": "cybersecurity_benchmark_timeline.pdf",
+     "tab": "101 benchmarks",
+     "caption": "Release years and task coverage of the 101 cybersecurity benchmarks and versions catalogued in this survey.",
+     "summary": "101 benchmarks and versions, mapped by release year and task.",
+     "no": "15",
+     "source_pdf": "src/figsrc-20261021/Fig15_cybersecurity_benchmark_timeline.pdf"
+    },
+    {
+     "file": "success_cost_tradeoffs.pdf",
+     "tab": "Success vs. cost",
+     "caption": "Success rates, costs, and harness comparisons in Wiz Cyber Model Arena (October 11, 2026 snapshot). Left: 28 configurations of 14 models across two harnesses and their Pareto frontier; cost per successful task (USD/solve, log scale) against macro-average pass@1 across four task categories. Right: pass@1 differences (CC−ADK, percentage points) and cost-per-success ratios (CC/ADK) for the same model under Claude Code (CC) and ADK ReAct.",
+     "summary": "Success versus cost across 28 model–harness configurations in Wiz Cyber Model Arena.",
+     "no": "17",
+     "source_pdf": "../finalimages/images/Fig16_success_cost_tradeoffs.pdf"
+    }
+   ],
+   "stats": [
+    {
+     "value": "101",
+     "label": "benchmarks and versions catalogued"
+    },
+    {
+     "value": "28",
+     "label": "model–harness configurations compared"
+    },
+    {
+     "value": "15 / 17 / 19",
+     "label": "Cybench tasks: best single harness, union of four, shared blackboard"
+    }
+   ],
+   "points": [
+    {
+     "head": "Paired versions expose shortcuts",
+     "text": "Require correct decisions on both vulnerable and repaired versions—not just high single-sample F1."
+    },
+    {
+     "head": "Clues change completion",
+     "text": "BountyBench and ProtoArena show how task scope and supplied clues change completion rates."
+    },
+    {
+     "head": "Separate model from harness",
+     "text": "Keep the model fixed when measuring gains from tools, orchestration, or shared state."
+    },
+    {
+     "head": "Report cost with success",
+     "text": "Report success alongside cost, time, and steps; better coverage need not mean lower cost."
+    }
+   ],
+   "works": [
+    "CyberGym",
+    "ExploitGym",
+    "Cybench",
+    "CVE-Bench",
+    "BountyBench",
+    "ProtoArena",
+    "PrimeVul",
+    "CTIBench",
+    "SIR-Bench",
+    "PatchEval",
+    "CyberSecEval 4",
+    "Wiz Cyber Model Arena"
+   ],
+   "paper_title": "Capability Evaluation and Benchmarks"
+  },
+  {
+   "id": "applications",
+   "num": "8",
+   "hue": "slate",
+   "kicker": "Section 8 · Applications",
+   "title": "Turn findings into accepted outcomes",
+   "lede": "Practical value depends on validated deliverables, human review, and the work saved across the full response cycle.",
+   "figures": [
+    {
+     "file": "Cybersecurity_Application_Interfaces.pdf",
+     "tab": "Interfaces & loop",
+     "caption": "Cybersecurity application interfaces and an alert-investigation workflow. (a) Inputs, task outputs, validation methods, and users across code repositories, traffic and logs, alerts and tickets, endpoints and files, and cloud services and APIs. (b) Alert queries, verification, response planning, analyst approval, and execution feedback.",
+     "summary": "Five application interfaces connect inputs, validation, and accepted outcomes.",
+     "no": "18",
+     "source_pdf": "../finalimages/images/Fig17_Cybersecurity_Application_Interfaces.pdf"
+    }
+   ],
+   "points": [
+    {
+     "head": "Repair & regression",
+     "text": "Check builds, vulnerability regression, functionality, dependencies, and maintainer acceptance."
+    },
+    {
+     "head": "Alert to response",
+     "text": "Correlate users, hosts, and events before moving from an alert to an approved response."
+    },
+    {
+     "head": "Traceable conclusions",
+     "text": "Ground malware and forensic conclusions in behavior, records, and a reliable timeline."
+    },
+    {
+     "head": "Measure total work",
+     "text": "Track useful discoveries, review burden, erroneous responses, and time to deployment."
+    }
+   ],
+   "works": [
+    "CTIFoundry",
+    "SafeCoder",
+    "AutoPatchBench",
+    "LLM4Decompile",
+    "MalEval",
+    "DeepSOC",
+    "PhishTriage",
+    "CVE-Bench",
+    "CyberSleuth",
+    "GPTScan",
+    "FirmAgent",
+    "HoneyGPT"
+   ],
+   "paper_title": "Cybersecurity Applications"
+  },
+  {
+   "id": "outlook",
+   "num": "9",
+   "hue": "navy",
+   "kicker": "Section 9 · Discussion",
+   "title": "Faster discovery. A different bottleneck.",
+   "lede": "As discovery accelerates, reproduction, repair, and deployment become critical—and agents join the security boundary.",
+   "figures": [
+    {
+     "file": "vulnerability_governance.pdf",
+     "tab": "Remediation backlog",
+     "caption": "Backlog dynamics across vulnerability discovery, validation, repair, and deployment. B(t), D(t), and F(t) count outstanding items at the start of a period, newly confirmed items, and items resolved during that period; the counting unit is a vulnerability–affected-asset pair.",
+     "summary": "Discovery removes risk only when validated findings reach remediation.",
+     "no": "19",
+     "source_pdf": "../finalimages/images/Fig18_vulnerability_governance.pdf"
+    },
+    {
+     "file": "trust_boundaries.pdf",
+     "tab": "Trust boundaries",
+     "caption": "Trust boundaries and human intervention in cybersecurity agents. An alert-investigation example illustrates external-content handling, memory provenance, action authorization and human approval, and independent validation of conclusions.",
+     "summary": "Keep untrusted content, permissions, and independent verification on clear boundaries.",
+     "no": "20",
+     "source_pdf": "../finalimages/images/Fig19_trust_boundaries.pdf"
+    }
+   ],
+   "points": [
+    {
+     "head": "Measure remediation",
+     "text": "Count accepted repairs, deployment time, and exposure duration alongside discoveries."
+    },
+    {
+     "head": "Agents are part of the boundary",
+     "text": "Treat external content as untrusted; apply least privilege and independent verification."
+    },
+    {
+     "head": "Hand off with the evidence",
+     "text": "Escalate uncertainty with original evidence, completed checks, and the consequences of each option."
+    }
+   ],
+   "works": [
+    "ExploitGym",
+    "BountyBench",
+    "Big Sleep",
+    "FuzzingBrain CRS",
+    "SysEvolve",
+    "CyberEvolver",
+    "MiMo",
+    "AgentDojo",
+    "InjecAgent"
+   ],
+   "paper_title": "Discussion and Future Directions"
+  }
+ ],
+ "directions": {
+  "hue": "slate",
+  "kicker": "Future directions",
+  "title": "Adversarial interaction drives intelligence; intelligence advances security.",
+  "lede": "Four directions from Section 9.8 for turning stronger capability into lasting security benefit.",
+  "items": [
+   {
+    "head": "AI-native security architectures",
+    "text": "Build perception, reasoning, decisions, and feedback learning in from the outset; validated experience feeds further learning."
+   },
+   {
+    "head": "Transferable failure recovery",
+    "text": "Diagnose invalid hypotheses, tool faults, and interrupted paths, then choose alternatives while retaining useful findings."
+   },
+   {
+    "head": "Alternating model–harness updates",
+    "text": "Revise the harness from failures, update the model on the resulting interactions, and test whether gains transfer."
+   },
+   {
+    "head": "From discovery to remediation",
+    "text": "Track backlogs, confirmed and resolved issues, review hours, and exposure duration over time."
+   }
+  ]
+ },
+ "cite": {
+  "kicker": "Citation",
+  "title": "Cite this survey",
+  "lede": "If you find this survey useful for your research, please cite it.",
+  "bibtex": "@article{miao2026llmcybersecurity,\n  title   = {Large Language Models for Cybersecurity: A Survey of Data,\n             Training, Models, Agent Systems, Evaluation, and Applications},\n  author  = {Miao, Fasheng and Wang, Yuanda and Hu, Zhaoyu and Zeng, Jiutian and\n             Li, Xiang and Zhuang, Shuying and Zhang, Yiliang and Weng, Ziang and\n             Dai, Chengwei and Li, Junjie and Zhang, Haokang and Jia, Ruipeng and\n             Fu, Jiadong and Ge, Yang and Lu, Xiuqi and Tian, Zhenhao and\n             Qiu, Yuqi and Xu, Zuyao and Sun, Lu and Huang, Aichun and\n             An, Changqing and Han, Xinhui and Zhang, Chao and Huang, Longtao and\n             Duan, Haixin and Liu, Zheli and Wang, Jilong},\n  year    = {2026},\n  note    = {Version of October 21, 2026}\n}",
+  "note": "The paper link will be added on release."
+ }
+}

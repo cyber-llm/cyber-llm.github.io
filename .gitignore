@@ -1,0 +1,10 @@
+# build output (GitHub Actions regenerates and publishes it)
+index.html
+public/
+# local-only material
+.private/
+dist/
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
