@@ -71,7 +71,8 @@
     previousOverflow = document.body.style.overflow;
     aspect = Number(image.getAttribute('width')) / Number(image.getAttribute('height'));
     fallback = button.dataset.fallback || '';
-    lbImg.src = button.dataset.full;
+    lbImg.src = fallback || button.dataset.full;
+    if (fallback) upgrade(button.dataset.full);
     lbImg.alt = image.alt;
     lbCap.textContent = Array.from(cap.querySelectorAll('span')).map(function (part) { return part.textContent.trim(); }).join(' · ');
     var download = lb.querySelector('.lb-download');
@@ -88,6 +89,7 @@
     if (!sessionOpen) return;
     sessionOpen = false;
     document.body.style.overflow = previousOverflow;
+    if (vector) { vector.onload = null; vector.src = ''; vector = null; }
     lbImg.removeAttribute('src');
     stopDrag();
     if (last && last.isConnected) last.focus({ preventScroll: true });
@@ -95,13 +97,27 @@
   function close() { if (lb.open) lb.close(); restorePage(); }
   lb.addEventListener('close', restorePage);
   lb.addEventListener('cancel', function (event) { event.preventDefault(); close(); });
-  lbImg.addEventListener('load', fit);
-  // 矢量原图过大或浏览器拒绝渲染时，退回 2400px 位图，保证放大查看始终可用。
+  lbImg.addEventListener('load', function () {
+    if (lbImg.dataset.swap) { delete lbImg.dataset.swap; return; }
+    fit();
+  });
+  // 渐进加载：先显示 2400px 位图，后台取矢量原图，取到后原位替换且保持当前缩放；
+  // 矢量图过大或浏览器拒绝渲染时，始终保留位图，放大查看不受网速影响。
   var fallback = '';
+  var vector = null;
   lbImg.addEventListener('error', function () {
     if (fallback && lbImg.getAttribute('src') !== fallback) { lbImg.src = fallback; return; }
     lbCap.textContent = 'The figure could not be loaded. Close and try again.';
   });
+  function upgrade(full) {
+    vector = new Image();
+    vector.onload = function () {
+      if (!lb.open || lbImg.getAttribute('src') !== fallback) return;
+      lbImg.dataset.swap = '1';
+      lbImg.src = full;
+    };
+    vector.src = full;
+  }
   lb.querySelector('.lb-close').addEventListener('click', close);
   lb.querySelector('.lb-fit').addEventListener('click', fit);
   zoomIn.addEventListener('click', function () { resizeImage(level + 1); });

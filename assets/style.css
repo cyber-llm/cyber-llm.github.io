@@ -189,11 +189,14 @@ section.block.band { background:
 .fig { margin: 0; }
 .fig[hidden] { display: none; }
 .fig button.zoom { display: block; width: 100%; margin: 0; padding: 22px 22px 6px; border: 0; background: #fff; cursor: zoom-in; }
+/* 慢网下先显示内嵌的模糊预览（--lqip），清晰图到达后自然覆盖。 */
 .fig img { width: 100%; height: auto; max-height: 820px; object-fit: contain; border-radius: 8px;
-  background: linear-gradient(100deg, #f1f5fb 30%, #e8eef8 50%, #f1f5fb 70%) 0 0 / 300% 100%;
-  animation: placeholder 1.4s linear infinite; transition: transform .35s var(--ease); }
-.fig img.is-loaded { background: none; animation: none; }
-@keyframes placeholder { from { background-position: 100% 0; } to { background-position: -50% 0; } }
+  background: var(--lqip, none) center / contain no-repeat, #f4f7fc; transition: transform .35s var(--ease); }
+.fig img.is-loaded { background: #fff; }
+.fig button.zoom { position: relative; }
+.fig button.zoom:has(img:not(.is-loaded))::after { content: "Loading figure…"; position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%); padding: 8px 15px; border: 1px solid var(--line); border-radius: 999px;
+  background: rgba(255,255,255,.92); box-shadow: var(--shadow-sm); color: var(--muted); font: 600 13px/1 var(--sans); }
 .fig button.zoom:hover img { transform: scale(1.006); }
 .fig figcaption { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: baseline; gap: 14px;
   padding: 12px 22px 18px; color: var(--soft-text); font-size: 14.5px; line-height: 1.5; }
