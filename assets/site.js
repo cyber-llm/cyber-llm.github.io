@@ -1,5 +1,11 @@
 // Project page behaviour: figure tabs, click-to-zoom lightbox, BibTeX copy, active nav link, reveal on scroll.
 (function () {
+  // 正文配图加载完成后去掉占位底纹。
+  document.querySelectorAll('.fig img').forEach(function (img) {
+    function done() { img.classList.add('is-loaded'); }
+    if (img.complete && img.naturalWidth) done(); else img.addEventListener('load', done, { once: true });
+  });
+
   // tabs inside each figure viewer
   document.querySelectorAll('.viewer').forEach(function (v) {
     var tabs = Array.from(v.querySelectorAll('.tab'));
@@ -64,6 +70,7 @@
     last = document.activeElement;
     previousOverflow = document.body.style.overflow;
     aspect = Number(image.getAttribute('width')) / Number(image.getAttribute('height'));
+    fallback = button.dataset.fallback || '';
     lbImg.src = button.dataset.full;
     lbImg.alt = image.alt;
     lbCap.textContent = Array.from(cap.querySelectorAll('span')).map(function (part) { return part.textContent.trim(); }).join(' · ');
@@ -89,7 +96,12 @@
   lb.addEventListener('close', restorePage);
   lb.addEventListener('cancel', function (event) { event.preventDefault(); close(); });
   lbImg.addEventListener('load', fit);
-  lbImg.addEventListener('error', function () { lbCap.textContent = 'The figure could not be loaded. Close and try again.'; });
+  // 矢量原图过大或浏览器拒绝渲染时，退回 2400px 位图，保证放大查看始终可用。
+  var fallback = '';
+  lbImg.addEventListener('error', function () {
+    if (fallback && lbImg.getAttribute('src') !== fallback) { lbImg.src = fallback; return; }
+    lbCap.textContent = 'The figure could not be loaded. Close and try again.';
+  });
   lb.querySelector('.lb-close').addEventListener('click', close);
   lb.querySelector('.lb-fit').addEventListener('click', fit);
   zoomIn.addEventListener('click', function () { resizeImage(level + 1); });
