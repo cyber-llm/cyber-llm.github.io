@@ -253,7 +253,7 @@ def build() -> str:
     <p class="note">{e(cite['note'])}{doi_link}</p>
     </div>
   </section>'''
-    paper_btn = (f'<a class="btn" href="{e(h["paper_url"])}">{ui_icon("paper")}Preprint</a>' if h.get('paper_url') else
+    paper_btn = (f'<a class="btn" href="{e(h["paper_url"])}">{ui_icon("paper")}Paper (PDF)</a>' if h.get('paper_url') else
                  f'<span class="btn" aria-disabled="true">{ui_icon("paper")}Paper <span class="soon">Coming soon</span></span>')
     return f'''<!doctype html>
 <html lang="en">
