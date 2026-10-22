@@ -98,9 +98,14 @@ def figure(f: dict, sid: str, i: int, hidden: bool, tabbed: bool = True) -> str:
     label = 'Figure ' + FIGNO[s]
     shape = ' tall' if image_height > image_width * .9 else ''
     panel_attrs = f' role="tabpanel" aria-labelledby="{sid}-t{i}"' if tabbed else ''
+    preview = lqip(ROOT / (raster + '-800.webp'))
+    srcset = f'{raster}-800.webp 800w, {raster}-1200.webp 1200w'
+    sizes = '(max-width: 680px) calc(100vw - 64px), (max-width: 1180px) calc(100vw - 102px), 1078px'
+    image_attrs = f'width="{round(image_width)}" height="{round(image_height)}" alt="{alt}" decoding="async"'
     return f'''<figure class="fig{shape}" id="{sid}-f{i}"{' hidden' if hidden else ''}{panel_attrs}>
         <button class="zoom" type="button" data-full="{source}" data-fallback="{raster}-2400.webp" data-download="{s}.svg" aria-label="Explore figure: {e(f.get('tab', ''))}">
-          <img src="{raster}-1200.webp" srcset="{raster}-800.webp 800w, {raster}-1200.webp 1200w, {raster}-2400.webp 2400w" sizes="(max-width: 1180px) calc(100vw - 80px), 1080px" width="{round(image_width)}" height="{round(image_height)}" alt="{alt}" loading="lazy" decoding="async" style="--lqip:url({lqip(ROOT / (raster + '-800.webp'))})">
+          <img class="deferred" src="{preview}" data-src="{raster}-1200.webp" data-srcset="{srcset}" sizes="{sizes}" {image_attrs}>
+          <noscript><img src="{raster}-1200.webp" srcset="{srcset}" sizes="{sizes}" {image_attrs} loading="lazy"></noscript>
         </button>
         <figcaption><span class="fno">{label}</span><span class="fcap">{e(f.get('summary', f['caption']))}</span><button class="figure-expand" type="button" aria-label="Open high-resolution figure explorer">Explore <span aria-hidden="true">↗</span></button></figcaption>
       </figure>'''
@@ -129,14 +134,6 @@ def points(sec: dict) -> str:
     return f'<div class="points n{len(ps)}">{cards}</div>' if ps else ''
 
 
-def works(sec: dict) -> str:
-    ws = sec.get('works', [])
-    if not ws:
-        return ''
-    chips = ' '.join(f'<li>{e(w)}</li>' for w in ws)
-    return f'<div class="works reveal"><span class="works-label">Representative work</span><ul class="work-list">{chips}</ul></div>'
-
-
 def head(badge: str, sec: dict, extra: str = '') -> str:
     kicker = sec.get('paper_title') or sec['kicker'].split('·')[-1].strip()
     return f'''<div class="sec-head reveal{extra}">
@@ -154,6 +151,19 @@ def stats(sec: dict) -> str:
         f'<div><b>{e(x["value"])}</b><span>{e(x["label"])}</span></div>' for x in st) + '</div>'
 
 
+def model_comparison(sec: dict) -> str:
+    comparison = sec.get('comparison')
+    if not comparison:
+        return ''
+    paths = []
+    for path in comparison['paths']:
+        steps = ''.join(f'<li><h4>{e(step["head"])}</h4><p>{e(step["text"])}</p></li>' for step in path['steps'])
+        paths.append(f'<article class="model-path"><h3>{e(path["title"])}</h3><p class="path-subtitle">{e(path["subtitle"])}</p><ol>{steps}</ol></article>')
+    return (f'<div class="model-comparison reveal"><div class="model-paths">{"".join(paths)}</div>'
+            f'<div class="model-shared"><h3>{e(comparison["shared_title"])}</h3><p>{e(comparison["shared_text"])}</p></div>'
+            f'<p class="comparison-source">{e(comparison["source"])}</p></div>')
+
+
 def section(num: str, sec: dict) -> str:
     hue = sec.get('hue', 'blue')
     band = ' band' if int(num) % 2 == 1 else ''
@@ -161,8 +171,8 @@ def section(num: str, sec: dict) -> str:
   <section class="block chapter{band}" id="{sec['id']}" style="--hue:{HUES[hue]};--hue-soft:{SOFT[hue]}">
     <div class="wrap">
     {head(num.zfill(2), sec)}
-    {viewer(sec)}
-    <div class="findings">{stats(sec)}{points(sec)}{works(sec)}</div>
+    {viewer(sec)}{model_comparison(sec)}
+    <div class="findings">{stats(sec)}{points(sec)}</div>
     {sec.get('extra_html', '')}
     </div>
   </section>'''
@@ -171,11 +181,18 @@ def section(num: str, sec: dict) -> str:
 def hero_people(h: dict) -> str:
     authors = ', '.join(f'<span class="author">{e(a["name"])}<sup>{e(a["affil"])}</sup></span>' for a in h['authors'])
     affils = ''.join(f'<span><sup>{i}</sup>{e(a)}</span>' for i, a in enumerate(h['affiliations'], 1))
+    from PIL import Image
     logos = []
     for logo in h['logos']:
         path = ROOT / f'assets/img/logos/{logo["file"]}.png'
         w, ht = png_size(path)
-        logos.append(f'<img class="logo logo-{logo["file"]}" src="assets/img/logos/{logo["file"]}.png" width="{w}" height="{ht}" '
+        compact = path.with_suffix('.webp')
+        if not compact.exists() or compact.stat().st_mtime < path.stat().st_mtime:
+            with Image.open(path) as image:
+                image = image.convert('RGBA')
+                image.thumbnail((round(w * 104 / ht), 104), Image.Resampling.LANCZOS)
+                image.save(compact, 'WEBP', quality=90, method=6)
+        logos.append(f'<img class="logo logo-{logo["file"]}" src="assets/img/logos/{logo["file"]}.webp" width="{w}" height="{ht}" '
                      f'alt="{e(logo["alt"])}" title="{e(logo["alt"])}" loading="eager" decoding="async">')
     c = h['contact']
     contact = f'<p class="contact"><sup>*</sup>{e(c["text"])} <a href="mailto:{e(c["email"])}">{e(c["email"])}</a></p>'
@@ -189,7 +206,6 @@ def build() -> str:
     nav = ''.join(f'<a href="#{n["id"]}">{e(n["label"])}</a>' for n in C['nav'])
     ov = C['overview']
     abstract = ''.join(f'<p>{rich(t)}</p>' for t in ov['abstract'])
-    ov_stats = ''.join(f'<div class="ov-stat"><b>{e(x["value"])}</b><span>{e(x["label"])}</span></div>' for x in h['stats'])
     insights = ''.join(f'<div class="insight reveal" style="--i:{i}"><span class="insight-no" aria-hidden="true">{i + 1:02d}</span>'
                        f'<h3>{title(x["head"])}</h3><p>{e(x["text"])}</p></div>' for i, x in enumerate(ov['insights']))
     dim_ids = ('data', 'training', 'models', 'agents', 'evaluation', 'applications')
@@ -205,10 +221,7 @@ def build() -> str:
       <h2>{e(ov['title'])}</h2>
       <p class="lede">{e(ov['lede'])}</p>
     </div>
-    <div class="overview-board">
-      <div class="abstract reveal"><span class="abstract-label">From the abstract</span>{abstract}</div>
-      <div class="ov-stats reveal">{ov_stats}</div>
-    </div>
+    <div class="abstract reveal">{abstract}</div>
     <div class="dims-head reveal"><h3>{e(ov['insights_title'])}</h3><span>Section 1.4 of the survey</span></div>
     <div class="insights">{insights}</div>
     <div class="dims-head reveal"><h3>Jump to a dimension</h3><span>Sections 3–8 of the survey</span></div>
@@ -219,10 +232,14 @@ def build() -> str:
     dirs = C['directions']
     dir_html = ''.join(f'<div class="dir reveal" style="--i:{i}"><span class="dir-no" aria-hidden="true">{i + 1:02d}</span>'
                        f'<h3>{title(d["head"])}</h3><p>{e(d["text"])}</p></div>' for i, d in enumerate(dirs['items']))
+    questions = ''.join(f'<li class="open-question"><span class="question-no">Q{i + 1}</span><div><h3>{e(q["head"])}</h3><p>{e(q["text"])}</p></div></li>' for i, q in enumerate(dirs.get('questions', [])))
+    question_html = (f'<div class="open-questions reveal"><h3 class="questions-title">Five open questions</h3><ol>{questions}</ol></div>' if questions else '')
     directions = f'''
   <section class="block" id="directions" style="--hue:{HUES['blue']};--hue-soft:{SOFT['blue']}">
     <div class="wrap">
     {head(ui_icon('directions'), dirs, ' quote')}
+    {question_html}
+    <div class="dims-head reveal"><h3>Future directions</h3><span>Section 9.8 of the survey</span></div>
     <div class="dirs">{dir_html}</div>
     </div>
   </section>'''
@@ -249,9 +266,8 @@ def build() -> str:
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#f6f8fc">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
-<link rel="preload" href="assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/style.css">
+<noscript><style>.fig[hidden] {{ display: block; }} .fig img.deferred, .tabs, .viewer-hint, .figure-expand {{ display: none; }} .reveal {{ opacity: 1; transform: none; }} .fig button.zoom::after {{ display: none; }}</style></noscript>
 </head>
 <body>
 <a class="skip" href="#overview">Skip to content</a>
@@ -267,7 +283,6 @@ def build() -> str:
 <header class="hero" id="top">
   <div class="hero-art" aria-hidden="true"><div class="hero-aurora"></div><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
   <div class="wrap hero-inner">
-    <span class="eyebrow"><span class="dot"></span>{e(h['eyebrow'])}</span>
     <h1>{h['title_html'].replace('class="accent"', 'class="accent g"')}</h1>
     <p class="subtitle">{e(h['subtitle'])}</p>
     {hero_people(h)}
@@ -289,12 +304,13 @@ def build() -> str:
 <a class="back-top" href="#top" aria-label="Back to top" hidden>{ui_icon('up')}</a>
 <dialog class="lightbox" id="lightbox" aria-label="Figure explorer" aria-describedby="lb-caption">
   <div class="lb-toolbar">
-    <span class="lb-title">Figure explorer <small>Vector original</small></span>
+    <span class="lb-title">Figure explorer <small class="lb-quality" aria-live="polite">Preview</small></span>
     <div class="lb-controls" role="group" aria-label="Zoom controls">
       <button class="lb-out" type="button" aria-label="Zoom out">−</button>
       <output class="lb-scale" aria-live="polite">100%</output>
       <button class="lb-in" type="button" aria-label="Zoom in">+</button>
       <button class="lb-fit" type="button">Fit</button>
+      <button class="lb-vector" type="button">Load vector</button>
       <a class="lb-download" download>Save SVG</a>
       <button class="lb-close" type="button" aria-label="Close figure explorer">Close</button>
     </div>

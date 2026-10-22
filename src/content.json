@@ -3,28 +3,9 @@
   "title": "Large Language Models for Cybersecurity",
   "title_html": "<span class=\"title-line\">Large Language Models</span><span class=\"title-line\">for <span class=\"accent\">Cybersecurity</span></span>",
   "subtitle": "A Survey of Data, Training, Models, Agent Systems, Evaluation, and Applications",
-  "eyebrow": "A survey · October 2026",
   "tagline": "From understanding threats to taking action. How data, models, and agents build security capability.",
   "paper_url": "",
   "footer_date": "Version of October 21, 2026",
-  "stats": [
-   {
-    "value": "6",
-    "label": "research dimensions"
-   },
-   {
-    "value": "556",
-    "label": "works cited"
-   },
-   {
-    "value": "101",
-    "label": "benchmarks catalogued"
-   },
-   {
-    "value": "20",
-    "label": "figures"
-   }
-  ],
   "authors": [
    {
     "name": "Fasheng Miao",
@@ -80,7 +61,7 @@
    },
    {
     "name": "Yang Ge",
-    "affil": "8"
+    "affil": "1"
    },
    {
     "name": "Xiuqi Lu",
@@ -132,7 +113,7 @@
    },
    {
     "name": "Jilong Wang",
-    "affil": "2,9"
+    "affil": "2,8"
    }
   ],
   "affiliations": [
@@ -143,7 +124,6 @@
    "Zhongguancun Laboratory",
    "Minjur Team, Alibaba Group",
    "Institute of Information Engineering, Chinese Academy of Sciences",
-   "Institute of Software, Chinese Academy of Sciences",
    "Quan Cheng Laboratory"
   ],
   "logos": [
@@ -170,10 +150,6 @@
    {
     "file": "iie",
     "alt": "Institute of Information Engineering, CAS"
-   },
-   {
-    "file": "iscas",
-    "alt": "Institute of Software, CAS"
    },
    {
     "file": "qcl",
@@ -338,19 +314,6 @@
      "text": "The balance depends on access, resources, validation, and deployment."
     }
    ],
-   "works": [
-    "PentestGPT",
-    "Fuzz4All",
-    "Big Sleep",
-    "HPTSA",
-    "EnIGMA",
-    "CAI",
-    "Sec-PaLM 2",
-    "SEvenLLM",
-    "AutoPatch",
-    "CyberSleuth",
-    "Foundation-Sec"
-   ],
    "paper_title": "Introduction"
   },
   {
@@ -412,20 +375,6 @@
      "text": "On 33 Cybench tasks, CSI's best single harness solves 15; shared-blackboard coordination solves 19."
     }
    ],
-   "works": [
-    "SecureBERT",
-    "HackMentor",
-    "EnIGMA",
-    "R2Vul",
-    "Big Sleep",
-    "CTF-Dojo",
-    "PrimeVul",
-    "Antares",
-    "CyberGym",
-    "Cybench",
-    "CSI",
-    "PhishTriage"
-   ],
    "paper_title": "Cybersecurity Tasks, Capability Evolution, and Analytical Framework"
   },
   {
@@ -476,20 +425,6 @@
      "head": "Validation and separation",
      "text": "Check executable outcomes and split related code, patches, and reports together."
     }
-   ],
-   "works": [
-    "SecCorpus",
-    "Foundation-Sec",
-    "Primus",
-    "RedSage",
-    "MiST",
-    "R2Vul",
-    "ARVO",
-    "kGym",
-    "CTF-Dojo",
-    "Cyber-Zero",
-    "CyberForge",
-    "PrimeVul"
    ],
    "paper_title": "Security Data and Interactive Environments"
   },
@@ -550,20 +485,6 @@
      "text": "Agentic RL updates action policies; runtime feedback can also improve the harness."
     }
    ],
-   "works": [
-    "Foundation-Sec",
-    "Primus",
-    "RedSage",
-    "MiST",
-    "Cyber-Zero",
-    "CTF-Dojo",
-    "R2Vul",
-    "Minerva",
-    "Antares",
-    "VulAgentRL",
-    "Pentest-R1",
-    "Meta-SecAlign"
-   ],
    "paper_title": "Training and Domain Adaptation"
   },
   {
@@ -573,16 +494,7 @@
    "kicker": "Section 5 · Models",
    "title": "Domain expertise. General capability.",
    "lede": "Specialized and general-purpose models converge through code, reasoning, and interaction. Their value remains task-dependent.",
-   "figures": [
-    {
-     "file": "cover_model_rankings.pdf",
-     "tab": "Model rankings",
-     "caption": "Model rankings on the CyberGym and ExploitGym leaderboards as of October 11, 2026.",
-     "summary": "CyberGym and ExploitGym rankings · snapshot of October 11, 2026.",
-     "no": "16",
-     "source_pdf": "../finalimages/images/Cover_cover_model_rankings.pdf"
-    }
-   ],
+   "figures": [],
    "points": [
     {
      "head": "Staged domain adaptation",
@@ -601,21 +513,50 @@
      "text": "Test which tasks benefit reliably from specialization under matched execution conditions."
     }
    ],
-   "works": [
-    "Foundation-Sec",
-    "Primus",
-    "RedSage",
-    "XekRung",
-    "Minerva",
-    "CTF-Dojo",
-    "VulAgentRL",
-    "LLM4Decompile",
-    "GPT-5.5-Cyber",
-    "MAI-Cyber-1-Flash",
-    "GLM-5.3",
-    "MiMo-V2.6"
-   ],
-   "paper_title": "Large Language Models for Cybersecurity"
+   "paper_title": "Large Language Models for Cybersecurity",
+   "comparison": {
+    "paths": [
+     {
+      "title": "Security-domain models",
+      "subtitle": "Domain knowledge → task-aligned capabilities",
+      "steps": [
+       {
+        "head": "Adapt domain knowledge",
+        "text": "Security corpora, continued pretraining, and domain instructions build familiarity with terminology, code, and operational records."
+       },
+       {
+        "head": "Learn task-specific behavior",
+        "text": "Reasoning supervision, preferences, and interaction feedback align predictions and tool decisions with security tasks."
+       },
+       {
+        "head": "Match inputs and deliverables",
+        "text": "Specialization targets structured intelligence, vulnerability locations, binary representations, logs, and secure code."
+       }
+      ]
+     },
+     {
+      "title": "General-purpose models",
+      "subtitle": "Code, reasoning, and interaction → security transfer",
+      "steps": [
+       {
+        "head": "Develop transferable foundations",
+        "text": "Broad language and code training supports program understanding and reasoning across unfamiliar tasks."
+       },
+       {
+        "head": "Learn through interaction",
+        "text": "Tool use and interactive training support investigation; security tasks can also be included in general post-training."
+       },
+       {
+        "head": "Handle open-ended investigation",
+        "text": "Cross-file dependencies, conflicting evidence, and multistage decisions draw on reasoning and context processing."
+       }
+      ]
+     }
+    ],
+    "shared_title": "Shared requirements: tools, context, and validation",
+    "shared_text": "Both paths depend on access to useful evidence, reliable tool decisions, and validated outputs. Combine specialists for routine screening with general models for complex investigation, then evaluate quality, latency, and human review cost.",
+    "source": "Synthesis of Sections 5.1–5.6"
+   }
   },
   {
    "id": "agents",
@@ -690,20 +631,6 @@
      "text": "Approval gates and independent checks constrain what agents can execute."
     }
    ],
-   "works": [
-    "PentestGPT",
-    "EnIGMA",
-    "IRIS",
-    "PentestAgent",
-    "STAIR",
-    "TRACKAGENT",
-    "CTIFoundry",
-    "Malaika",
-    "Moirae",
-    "Agentra",
-    "CSI",
-    "LlamaFirewall"
-   ],
    "paper_title": "Cybersecurity Agent Systems"
   },
   {
@@ -771,20 +698,6 @@
      "text": "Report success alongside cost, time, and steps; better coverage need not mean lower cost."
     }
    ],
-   "works": [
-    "CyberGym",
-    "ExploitGym",
-    "Cybench",
-    "CVE-Bench",
-    "BountyBench",
-    "ProtoArena",
-    "PrimeVul",
-    "CTIBench",
-    "SIR-Bench",
-    "PatchEval",
-    "CyberSecEval 4",
-    "Wiz Cyber Model Arena"
-   ],
    "paper_title": "Capability Evaluation and Benchmarks"
   },
   {
@@ -821,20 +734,6 @@
      "head": "Measure total work",
      "text": "Track useful discoveries, review burden, erroneous responses, and time to deployment."
     }
-   ],
-   "works": [
-    "CTIFoundry",
-    "SafeCoder",
-    "AutoPatchBench",
-    "LLM4Decompile",
-    "MalEval",
-    "DeepSOC",
-    "PhishTriage",
-    "CVE-Bench",
-    "CyberSleuth",
-    "GPTScan",
-    "FirmAgent",
-    "HoneyGPT"
    ],
    "paper_title": "Cybersecurity Applications"
   },
@@ -877,25 +776,14 @@
      "text": "Escalate uncertainty with original evidence, completed checks, and the consequences of each option."
     }
    ],
-   "works": [
-    "ExploitGym",
-    "BountyBench",
-    "Big Sleep",
-    "FuzzingBrain CRS",
-    "SysEvolve",
-    "CyberEvolver",
-    "MiMo",
-    "AgentDojo",
-    "InjecAgent"
-   ],
    "paper_title": "Discussion and Future Directions"
   }
  ],
  "directions": {
   "hue": "slate",
-  "kicker": "Future directions",
+  "kicker": "Open questions & future directions",
   "title": "Adversarial interaction drives intelligence; intelligence advances security.",
-  "lede": "Four directions from Section 9.8 for turning stronger capability into lasting security benefit.",
+  "lede": "Five open questions frame the discussion in Section 9, followed by four research directions for turning stronger capability into lasting security benefit.",
   "items": [
    {
     "head": "AI-native security architectures",
@@ -912,6 +800,28 @@
    {
     "head": "From discovery to remediation",
     "text": "Track backlogs, confirmed and resolved issues, review hours, and exposure duration over time."
+   }
+  ],
+  "questions": [
+   {
+    "head": "Offense and defense",
+    "text": "How will stronger LLMs change the relative advantages of attackers and defenders?"
+   },
+   {
+    "head": "Remediation bottlenecks",
+    "text": "Where will security research bottlenecks move as vulnerability discovery becomes easier?"
+   },
+   {
+    "head": "Domain specialization",
+    "text": "How will the value of security-specialized models change as general models improve?"
+   },
+   {
+    "head": "Co-optimization",
+    "text": "Will the next capability gains come primarily from models or harnesses?"
+   },
+   {
+    "head": "Continual evolution",
+    "text": "Can attack–defense self-play sustain the improvement of security agents?"
    }
   ]
  },

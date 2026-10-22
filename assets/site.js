@@ -1,9 +1,29 @@
 // Project page behaviour: figure tabs, click-to-zoom lightbox, BibTeX copy, active nav link, reveal on scroll.
 (function () {
-  // 正文配图加载完成后去掉占位底纹。
-  document.querySelectorAll('.fig img').forEach(function (img) {
-    function done() { img.classList.add('is-loaded'); }
-    if (img.complete && img.naturalWidth) done(); else img.addEventListener('load', done, { once: true });
+  // Only active, nearby figures compete for bandwidth; hidden tabs load on intent.
+  function loadFigure(img) {
+    if (!img || !img.dataset.src) return;
+    img.loading = 'eager';
+    img.srcset = img.dataset.srcset;
+    img.src = img.dataset.src;
+    delete img.dataset.src;
+    delete img.dataset.srcset;
+  }
+  document.querySelectorAll('.fig img.deferred').forEach(function (img) {
+    img.addEventListener('load', function () {
+      if (!img.dataset.src && !img.currentSrc.startsWith('data:')) img.classList.add('is-loaded');
+    });
+  });
+  var nearby = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      loadFigure(entry.target.querySelector('.fig:not([hidden]) img.deferred'));
+      nearby.unobserve(entry.target);
+    });
+  }, { rootMargin: '900px 0px' }) : null;
+  document.querySelectorAll('.viewer').forEach(function (viewer) {
+    if (nearby) nearby.observe(viewer);
+    else loadFigure(viewer.querySelector('.fig:not([hidden]) img.deferred'));
   });
 
   // tabs inside each figure viewer
@@ -14,9 +34,15 @@
         other.setAttribute('aria-selected', String(other === tab));
         other.tabIndex = other === tab ? 0 : -1;
       });
-      v.querySelectorAll('.fig').forEach(function (figure) { figure.hidden = figure.id !== tab.getAttribute('aria-controls'); });
+      v.querySelectorAll('.fig').forEach(function (figure) {
+        figure.hidden = figure.id !== tab.getAttribute('aria-controls');
+        if (!figure.hidden) loadFigure(figure.querySelector('img.deferred'));
+      });
     }
     tabs.forEach(function (tab, index) {
+      function warm() { loadFigure(document.getElementById(tab.getAttribute('aria-controls')).querySelector('img.deferred')); }
+      tab.addEventListener('pointerenter', warm, { once: true });
+      tab.addEventListener('focus', warm, { once: true });
       tab.addEventListener('click', function () { select(tab); });
       tab.addEventListener('keydown', function (event) {
         var target;
@@ -70,9 +96,11 @@
     last = document.activeElement;
     previousOverflow = document.body.style.overflow;
     aspect = Number(image.getAttribute('width')) / Number(image.getAttribute('height'));
-    fallback = button.dataset.fallback || '';
-    lbImg.src = fallback || button.dataset.full;
-    if (fallback) upgrade(button.dataset.full);
+    full = button.dataset.full;
+    lbImg.src = image.currentSrc || image.src;
+    quality.textContent = 'Preview';
+    vectorButton.disabled = false;
+    vectorButton.textContent = 'Load vector';
     lbImg.alt = image.alt;
     lbCap.textContent = Array.from(cap.querySelectorAll('span')).map(function (part) { return part.textContent.trim(); }).join(' · ');
     var download = lb.querySelector('.lb-download');
@@ -80,6 +108,7 @@
     download.download = button.dataset.download;
     lb.showModal();
     sessionOpen = true;
+    upgrade(button.dataset.fallback, false);
     document.body.style.overflow = 'hidden';
     fit();
     lb.querySelector('.lb-close').focus();
@@ -89,7 +118,7 @@
     if (!sessionOpen) return;
     sessionOpen = false;
     document.body.style.overflow = previousOverflow;
-    if (vector) { vector.onload = null; vector.src = ''; vector = null; }
+    cancelUpgrade();
     lbImg.removeAttribute('src');
     stopDrag();
     if (last && last.isConnected) last.focus({ preventScroll: true });
@@ -97,27 +126,47 @@
   function close() { if (lb.open) lb.close(); restorePage(); }
   lb.addEventListener('close', restorePage);
   lb.addEventListener('cancel', function (event) { event.preventDefault(); close(); });
-  lbImg.addEventListener('load', function () {
-    if (lbImg.dataset.swap) { delete lbImg.dataset.swap; return; }
-    fit();
-  });
-  // 渐进加载：先显示 2400px 位图，后台取矢量原图，取到后原位替换且保持当前缩放；
-  // 矢量图过大或浏览器拒绝渲染时，始终保留位图，放大查看不受网速影响。
-  var fallback = '';
-  var vector = null;
-  lbImg.addEventListener('error', function () {
-    if (fallback && lbImg.getAttribute('src') !== fallback) { lbImg.src = fallback; return; }
-    lbCap.textContent = 'The figure could not be loaded. Close and try again.';
-  });
-  function upgrade(full) {
-    vector = new Image();
-    vector.onload = function () {
-      if (!lb.open || lbImg.getAttribute('src') !== fallback) return;
-      lbImg.dataset.swap = '1';
-      lbImg.src = full;
-    };
-    vector.src = full;
+  // Reuse the displayed preview immediately; replace it only after the detail image decodes.
+  // SVG originals are requested explicitly, so opening a figure does not download both formats.
+  var full = '';
+  var pending = null;
+  var upgradeId = 0;
+  var quality = lb.querySelector('.lb-quality');
+  var vectorButton = lb.querySelector('.lb-vector');
+  function cancelUpgrade() {
+    upgradeId++;
+    if (pending) { pending.onload = null; pending.onerror = null; pending = null; }
   }
+  function upgrade(url, isVector) {
+    if (!url) return;
+    cancelUpgrade();
+    var id = upgradeId;
+    var next = new Image();
+    pending = next;
+    function failed() {
+      if (id !== upgradeId || !lb.open) return;
+      pending = null;
+      quality.textContent = 'Preview · detail unavailable';
+      if (isVector) { vectorButton.disabled = false; vectorButton.textContent = 'Retry vector'; }
+    }
+    next.onerror = failed;
+    next.onload = function () {
+      var decoded = next.decode ? next.decode() : Promise.resolve();
+      decoded.then(function () {
+        if (id !== upgradeId || !lb.open) return;
+        lbImg.src = url;
+        quality.textContent = isVector ? 'Vector original' : 'High resolution';
+        pending = null;
+        if (isVector) vectorButton.textContent = 'Vector loaded';
+      }).catch(failed);
+    };
+    next.src = url;
+  }
+  vectorButton.addEventListener('click', function () {
+    vectorButton.disabled = true;
+    vectorButton.textContent = 'Loading vector…';
+    upgrade(full, true);
+  });
   lb.querySelector('.lb-close').addEventListener('click', close);
   lb.querySelector('.lb-fit').addEventListener('click', fit);
   zoomIn.addEventListener('click', function () { resizeImage(level + 1); });
@@ -297,7 +346,7 @@
         run(entry.target);
       });
     }, { threshold: .55 });
-    document.querySelectorAll('.ov-stat b, .sec-stats b').forEach(function (el) { counters.observe(el); });
+    document.querySelectorAll('.sec-stats b').forEach(function (el) { counters.observe(el); });
   })();
 
   function syncVisibility() {
