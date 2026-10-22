@@ -4,8 +4,8 @@
   "title_html": "<span class=\"title-line\">Large Language Models</span><span class=\"title-line\">for <span class=\"accent\">Cybersecurity</span></span>",
   "subtitle": "A Survey of Data, Training, Models, Agent Systems, Evaluation, and Applications",
   "tagline": "From understanding threats to taking action. How data, models, and agents build security capability.",
-  "paper_url": "",
-  "footer_date": "Version of October 21, 2026",
+  "paper_url": "https://www.preprints.org/manuscript/202610.2235/v1",
+  "footer_date": "Preprint v1 · October 2026",
   "authors": [
    {
     "name": "Fasheng Miao",
@@ -829,7 +829,8 @@
   "kicker": "Citation",
   "title": "Cite this survey",
   "lede": "If you find this survey useful for your research, please cite it.",
-  "bibtex": "@article{miao2026llmcybersecurity,\n  title   = {Large Language Models for Cybersecurity: A Survey of Data,\n             Training, Models, Agent Systems, Evaluation, and Applications},\n  author  = {Miao, Fasheng and Wang, Yuanda and Hu, Zhaoyu and Zeng, Jiutian and\n             Li, Xiang and Zhuang, Shuying and Zhang, Yiliang and Weng, Ziang and\n             Dai, Chengwei and Li, Junjie and Zhang, Haokang and Jia, Ruipeng and\n             Fu, Jiadong and Ge, Yang and Lu, Xiuqi and Tian, Zhenhao and\n             Qiu, Yuqi and Xu, Zuyao and Sun, Lu and Huang, Aichun and\n             An, Changqing and Han, Xinhui and Zhang, Chao and Huang, Longtao and\n             Duan, Haixin and Liu, Zheli and Wang, Jilong},\n  year    = {2026},\n  note    = {Version of October 21, 2026}\n}",
-  "note": "The paper link will be added on release."
+  "bibtex": "@article{202610.2235,\n  doi = {10.20944/preprints202610.2235.v1},\n  url = {https://doi.org/10.20944/preprints202610.2235.v1},\n  year = {2026},\n  month = {October},\n  publisher = {Preprints},\n  author = {Fasheng Miao and Yuanda Wang and Zhaoyu Hu and Jiutian Zeng and Xiang Li and Shuying Zhuang and Yiliang Zhang and Ziang Weng and Chengwei Dai and Junjie Li and Haokang Zhang and Ruipeng Jia and Jiadong Fu and Yang Ge and Xiuqi Lu and Zhenhao Tian and Yuqi Qiu and Zuyao Xu and Lu Sun and Aichun Huang and Changqing An and Xinhui Han and Chao Zhang and Longtao Huang and Haixin Duan and Zheli Liu and Jilong Wang},\n  title = {Large Language Models for Cybersecurity: A Survey of Data, Training, Models, Agent Systems, Evaluation, and Applications},\n  journal = {Preprints}\n}",
+  "note": "Published on Preprints.org · Version 1 · October 2026.",
+  "doi": "10.20944/preprints202610.2235.v1"
  }
 }

@@ -244,15 +244,16 @@ def build() -> str:
     </div>
   </section>'''
     cite = C['cite']
+    doi_link = (f' <a href="https://doi.org/{e(cite["doi"])}">DOI: {e(cite["doi"])}</a>' if cite.get('doi') else '')
     citation = f'''
   <section class="block band" id="cite" style="--hue:{HUES['blue']};--hue-soft:{SOFT['blue']}">
     <div class="wrap">
     {head(ui_icon('cite'), cite)}
     <div class="panel cite reveal"><div class="cite-toolbar"><span class="terminal-label">BibTeX</span><button class="copy" type="button">Copy</button></div><pre id="bibtex">{e(cite['bibtex'])}</pre></div>
-    <p class="note">{e(cite['note'])}</p>
+    <p class="note">{e(cite['note'])}{doi_link}</p>
     </div>
   </section>'''
-    paper_btn = (f'<a class="btn" href="{e(h["paper_url"])}">{ui_icon("paper")}Paper (PDF)</a>' if h.get('paper_url') else
+    paper_btn = (f'<a class="btn" href="{e(h["paper_url"])}">{ui_icon("paper")}Preprint</a>' if h.get('paper_url') else
                  f'<span class="btn" aria-disabled="true">{ui_icon("paper")}Paper <span class="soon">Coming soon</span></span>')
     return f'''<!doctype html>
 <html lang="en">
